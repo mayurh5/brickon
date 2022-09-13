@@ -1,0 +1,48 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboard",
+      "slug": "desktop",
+      "icon": "desktop",
+      "tagcustom": "badge badge-light-danger badge-pill badge-round float-right mr-50"
+
+    },
+    {
+      "url": "users",
+      "name": "User List",
+      "slug": "users.index",
+      "icon": "user"
+    },
+    {
+      "url": "leads",
+      "name": "Leads List",
+      "slug": "leads.index",
+      "icon": "users"
+    },
+    {
+      "url": "certifiactes",
+      "name": "Certifiactes",
+      "slug": "certifiactes.index",
+      "icon": "notebook"
+    },
+    {
+      "url": "distributor",
+      "name": "Distributors",
+      "slug": "distributor.index",
+      "icon": "bank"
+    },
+    {
+      "url": "banner",
+      "name": "Banners",
+      "slug": "banner.index",
+      "icon": "image"
+    },
+    {
+      "url": "product",
+      "name": "Product",
+      "slug": "product.index",
+      "icon": "save"
+    }
+  ]
+}
