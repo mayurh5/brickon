@@ -145,7 +145,9 @@ return [
   "Terms" => "Terms",
   "Product" => "Product",
   "App Management" => "App Management",
-  "Application" => "Application"
+  "Application" => "Application",
+  "setting" => "Setting",
+  'contact us' => 'Contact Us'
 
 ];
 ?>

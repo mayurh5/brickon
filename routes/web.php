@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\CertifiactesController;
 use App\Http\Controllers\Admin\DistributorController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ApplicationController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\ContactUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +37,7 @@ Route::group(['namespace'=>'admin'], function () {
 
     Route::get('/', [LeadsController::class, 'index'])->name('index');
     Route::get('/create', [LeadsController::class, 'create'])->name('create');
+    Route::get('/view', [LeadsController::class, 'view'])->name('view');
 
 
   });
@@ -42,6 +46,7 @@ Route::group(['namespace'=>'admin'], function () {
 
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/create', [UserController::class, 'create'])->name('create');
+    Route::get('/view', [UserController::class, 'view'])->name('view');
 
 
   });
@@ -73,6 +78,26 @@ Route::group(['namespace'=>'admin'], function () {
     Route::get('/create', [ProductController::class, 'create'])->name('create');
 
   });
+
+  Route::group(['prefix' => 'application', 'namespace'=>'application', 'as'=>'application.'], function () {
+
+    Route::get('/', [ApplicationController::class, 'index'])->name('index');
+    Route::get('/create', [ApplicationController::class, 'create'])->name('create');
+
+  });
+
+  Route::group(['prefix' => 'setting', 'namespace'=>'setting', 'as'=>'setting.'], function () {
+
+    Route::get('/', [SettingController::class, 'index'])->name('index');
+
+  });
+
+  Route::group(['prefix' => 'contact_us', 'namespace'=>'contact_us', 'as'=>'contact_us.'], function () {
+
+    Route::get('/', [ContactUsController::class, 'index'])->name('index');
+
+  });
+
 
 
 });

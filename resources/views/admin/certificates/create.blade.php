@@ -1,6 +1,6 @@
 @extends('layouts.contentLayoutMaster')
 {{-- page title --}}
-@section('title','User Create')
+@section('title','Certifiacte Create')
 
 @section('vendor-styles')
 @endsection
@@ -61,6 +61,14 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-12 form-group">
+                                  <div class="controls">
+                                    <label>Title</label>
+                                    <input type="text" class="form-control" name="title" required>
+                                  </div>
+                              </div>
+
 
                             </div>
 

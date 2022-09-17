@@ -88,6 +88,7 @@
                                                 <input type="numner" name="mobile_no" class="form-control" id="diaplay-icon">
                                             </div>
                                         </div>
+                                  </div>
                                         <div class="col-md-12 form-group">
                                           <div class="controls">
                                               <label class="required">Address</label>
@@ -97,13 +98,44 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12 form-group">
+                              </div>
+
+                               <div class="row">
+                                  <div class="col-md-4 form-group">
                                     <div class="controls">
-                                        <label class="required">Location</label>
-                                        <textarea name="location" id="" class="form-control" cols="2" rows="2"></textarea>
+                                        <label class="required">CIty</label>
+                                        <select name="city" class="form-control">
+                                          <option value="ahemedabad">Ahemedabad</option>
+                                          <option value="surat">Surat</option>
+                                          <option value="rajkot">Rajkot</option>
+                                          <option value="amreli">Amreli</option>
+                                        </select>
                                     </div>
                                 </div>
+                                <div class="col-md-4 form-group">
+                                  <div class="controls">
+                                      <label class="required">State</label>
+                                      <select name="state" class="form-control">
+                                        <option value="gujrat">Gujrat</option>
+                                      </select>
+                                  </div>
+                              </div>
+                            <div class="col-md-4 form-group">
+                              <div class="controls">
+                                  <label class="required">Country</label>
+                                  <select name="country" class="form-control">
+                                    <option value="india">India</option>
+                                  </select>
+                              </div>
                             </div>
+                              <div class="col-md-12 form-group">
+                                <div class="controls">
+                                    <label class="required">Location</label>
+                                    <textarea name="location" id="" class="form-control" cols="2" rows="2"></textarea>
+                                </div>
+                            </div>
+                               </div>
+
 
                             <div class="row">
                                 <div class="col-md-12 text-right">

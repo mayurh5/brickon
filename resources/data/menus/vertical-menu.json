@@ -43,6 +43,25 @@
       "name": "Product",
       "slug": "product.index",
       "icon": "save"
+    },
+    {
+      "url": "application",
+      "name": "Application",
+      "slug": "application.index",
+      "icon": "rocket"
+    },
+    {
+      "url": "setting",
+      "name": "setting",
+      "slug": "setting.index",
+      "icon": "gear"
+    },
+    {
+      "url": "contact_us",
+      "name": "contact us",
+      "slug": "contact_us.index",
+      "icon": "phone"
     }
+
   ]
 }

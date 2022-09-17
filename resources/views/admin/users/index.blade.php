@@ -19,9 +19,9 @@
             </p>
               <div class="card-header pt-75 pb-75">
                   <h4 class="card-title text-primary">Users List</h4>
-                  <div class="d-flex">
+                  {{-- <div class="d-flex">
                       <a class="btn btn-primary mr-1" href="{{route('users.create')}}" id="addBillBtn"><i class="bx bx-plus"></i> {{ trans('pages.add_with_attr', ['attribute' => 'User']) }}</a>
-                  </div>
+                  </div> --}}
               </div>
 
             <div class="card-body">
@@ -55,7 +55,7 @@
                             <td>Confirmed</td>
                             <td>27-09-2022</td>
                             <td>
-                              <a href="#" data-id="1" class="float-top"><i class="bx bx-edit text-primary bx-sm"></i></a>
+                              <a href="{{route('users.view')}}" data-id="1" class="float-top"><i class="bx bx-show text-primary bx-sm"></i></a>
                               <a href="#" data-id="1" class="float-top"><i class="bx bx-trash text-danger bx-sm"></i></a>
                         </td>
 

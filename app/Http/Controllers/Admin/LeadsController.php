@@ -18,4 +18,9 @@ class LeadsController extends Controller
   {
     return LeadsRepo :: create($request);
   }
+
+  public function view(Request $request)
+  {
+    return view('admin.leads.view');
+  }
 }

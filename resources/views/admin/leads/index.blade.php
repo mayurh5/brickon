@@ -33,6 +33,7 @@
                               {{-- <th style="display:none;"></th> --}}
                               <th>#</th>
                               <th>Party name</th>
+                              <th>Mobile no</th>
                               <th>production count</th>
                               <th>rate</th>
                               <th>total ton</th>
@@ -46,6 +47,7 @@
                           <tr>
                             <td>01</td>
                             <td>Kishan savani</td>
+                            <td>9879446033</td>
                             <td>50</td>
                             <td>100</td>
                             <td>100</td>
@@ -53,7 +55,7 @@
                             <td>Ahemdabad</td>
                             <td>
                               <a href="#" data-id="1" class="float-top"><i class="bx bx-edit text-primary bx-sm"></i></a>
-                              <a href="#" data-id="1" class="float-top"><i class="bx bx-trash text-danger bx-sm"></i></a>
+                              <a href="{{route('leads.view')}}" data-id="1" class="float-top"><i class="bx bx-show text-primary bx-sm"></i></a>
                         </td>
                           </tr>
 

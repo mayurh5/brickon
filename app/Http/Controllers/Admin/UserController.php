@@ -18,4 +18,10 @@ class UserController extends Controller
       return view('admin.users.create');
 
     }
+
+    public function view(Request $request){
+
+      return view('admin.users.view');
+
+    }
 }
