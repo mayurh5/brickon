@@ -88,6 +88,51 @@
                       <p>27-09-2022</p>
                   </div>
                 </div>
+
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="text-primary">Pan No :</label>
+                      <p>01234579</p>
+                  </div>
+                </div>
+
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="text-primary">Gst No:</label>
+                      <p>BDLPH12456</p>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="text-primary">Bank name:</label>
+                      <p>HDFC</p>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="text-primary">A/C Number:</label>
+                      <p>061626364</p>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="text-primary">IFSC Code:</label>
+                      <p>ADFE125</p>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="text-primary">Bank Address:</label>
+                      <p>nikol</p>
+                  </div>
+                </div>
+
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="text-primary">Basic Rate(20mm):</label>
+                      <p>500</p>
+                  </div>
+                </div>
             </div>
 
 

@@ -41,6 +41,14 @@
                       <p>Developer</p>
                   </div>
                 </div>
+
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="text-primary">Rate(20mm):</label>
+                      <p>500</p>
+                  </div>
+                </div>
+
                 <div class="col-4">
                   <div class="form-group">
                     <label class="text-primary">Company Name:</label>
@@ -74,7 +82,7 @@
 
                 <div class="col-12">
                   <div class="form-group">
-                    <label class="text-primary">Consignee Address:</label>
+                    <label class="text-primary">Delivery Address:</label>
                       <p>C-4, BIG SPLASH, 1ST FLR,TURBHE ROAD, SECTOR-17 VASHI, , N. BOMBAY NAVI MUMBAI 400 705 MH 000000 IN</p>
                   </div>
                 </div>

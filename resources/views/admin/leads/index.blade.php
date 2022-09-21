@@ -38,7 +38,8 @@
                               <th>rate</th>
                               <th>total ton</th>
                               <th>status</th>
-                              <th>consignee address</th>
+                              <th>Delivery address</th>
+                              <th>GST No</th>
                               <th>action</th>
                             </tr>
                         </thead>
@@ -53,6 +54,7 @@
                             <td>100</td>
                             <td>Confirmed</td>
                             <td>Ahemdabad</td>
+                            <td>123456789</td>
                             <td>
                               <a href="#" data-id="1" class="float-top"><i class="bx bx-edit text-primary bx-sm"></i></a>
                               <a href="{{route('leads.view')}}" data-id="1" class="float-top"><i class="bx bx-show text-primary bx-sm"></i></a>

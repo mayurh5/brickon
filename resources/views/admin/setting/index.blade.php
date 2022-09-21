@@ -106,6 +106,39 @@
                   </div>
               </div>
 
+              <div class="col-12 col-md-4">
+                <div class="col-md-12 col-12">
+                    <div class="card border shadow-none mb-1 app-file-info">
+                    <div class="card-body p-1 text-center">
+                        <div id="profile_pic_1_preview" class="image-fixed"><img src="#" alt="" style="object-fit: cover;" height="110" width="110" onerror="this.src = '{{Helper::defaultImage()}}';"></div>
+                    </div>
+                    <div class="ccard-footer pl-1 pr-1">
+                        <div class="form-group add-new-file text-center">
+                            <label>Brochure</label>
+                            <label for="profile_pic_1" class="btn btn-primary btn-block glow  add-file-btn text-capitalize">{{ trans('pages.select') }}</label>
+                            <input type="file" name="profile_pic" class="d-none" id="profile_pic_1">
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div class="col-md-12 col-12">
+                  <div class="card border shadow-none mb-1 app-file-info">
+                  <div class="card-body p-1 text-center">
+                      <div id="profile_pic_2_preview" class="image-fixed"><img src="#" alt="" style="object-fit: cover;" height="110" width="110" onerror="this.src = '{{Helper::defaultImage()}}';"></div>
+                  </div>
+                  <div class="ccard-footer pl-1 pr-1">
+                      <div class="form-group add-new-file text-center">
+                          <label>Product Quality</label>
+                          <label for="profile_pic_2" class="btn btn-primary btn-block glow  add-file-btn text-capitalize">{{ trans('pages.select') }}</label>
+                          <input type="file" name="profile_pic" class="d-none" id="profile_pic_2">
+                      </div>
+                  </div>
+                  </div>
+              </div>
+          </div>
 
 
               <input type="hidden" name="app_settings_id"  value="">

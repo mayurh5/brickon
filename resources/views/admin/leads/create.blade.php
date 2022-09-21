@@ -92,7 +92,7 @@
 
                                     <div class="col-md-6 form-group">
                                         <div class="controls">
-                                            <label class="d-block required">consignee address</label>
+                                            <label class="d-block required">Delivery address</label>
                                             <textarea name="consignee_address" class="form-control" id="" cols="5" rows="3"></textarea>
                                         </div>
                                     </div>
