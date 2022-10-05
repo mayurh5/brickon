@@ -33,8 +33,7 @@
                               {{-- <th style="display:none;"></th> --}}
                               <th>#</th>
                               <th>MM</th>
-                              <th>Ton</th>
-                              <th>Price</th>
+                              <th>Price Difference</th>
                               <th>Status</th>
                               <th>Action</th>
                             </tr>
@@ -45,7 +44,6 @@
                           <tr>
                             <td>01</td>
                             <td>20</td>
-                            <td>01</td>
                             <td>500</td>
                             <td>Active</td>
                             <td>

@@ -9,3 +9,23 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+.data-order-summary .data:not(:last-child){
+  margin-bottom: 20px;
+}
+.table-lead-info thead th{
+  position: relative;
+}
+.table-lead-info thead th::after {
+  top: 0 !important;
+}
+.card-data-summary .card{
+  height: 100%;
+}
+.data .name-data p {
+    color: #5A8DEE;
+    font-weight: 600;
+}
+.data p {
+  font-size: 12px;
+  line-height: 100%;
+}

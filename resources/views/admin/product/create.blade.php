@@ -58,17 +58,17 @@
 
                                     <div class="col-md-6 form-group">
                                       <div class="controls">
-                                          <label class="d-block required">Price</label>
+                                          <label class="d-block required">Price Difference</label>
                                           <input type="number" name="price" class="form-control" id="" required>
                                       </div>
                                   </div>
 
-                                    <div class="col-md-6 form-group">
+                                    {{-- <div class="col-md-6 form-group">
                                         <div class="controls">
                                             <label class="d-block required">Ton</label>
                                             <input type="number" name="total_ton" class="form-control" id="" required>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="col-sm-6 form-group ">
                                       <label class="d-block">Status</label>
@@ -84,13 +84,27 @@
                                       </div>
                                   </div>
 
+                                  <div class="col-sm-6 form-group ">
+                                    <label class="d-block">Primary</label>
+                                    <div class="custom-control-inline">
+                                        <div class="radio mr-1 mt-1">
+                                            <input type="radio" name="primary" id="primary1" value="1">
+                                            <label for="primary1">{{ trans('pages.yes') }}</label>
+                                        </div>
+                                        <div class="radio mt-1">
+                                            <input type="radio" name="primary" id="primary2" checked="" value="0">
+                                            <label for="primary2">{{ trans('pages.no') }}</label>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                    <div class="col-md-6 form-group">
+
+                                    {{-- <div class="col-md-6 form-group">
                                         <div class="controls">
                                             <label class="d-block required">consignee address</label>
                                             <textarea name="consignee_address" class="form-control" id="" cols="5" rows="3"></textarea>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 
 
