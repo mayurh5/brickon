@@ -92,6 +92,13 @@
                       </div>
                     </div>
 
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label class="text-primary">Primary:</label>
+                          <p>Yes</p>
+                      </div>
+                    </div>
+
                     <div class="col-12">
                       <div class="form-group">
                         <label class="text-primary">Delivery Address:</label>
@@ -136,17 +143,25 @@
                     <p class="m-0">Sub Total</p>
                   </div>
                   <div class="amount data">
-                    <p class="m-0">$ 5000.00</p>
+                    <p class="m-0">$5000.00</p>
                   </div>
                 </div>
-                {{-- <div class="data d-inline-flex justify-content-between align-items-center w-100">
+                <div class="data d-inline-flex justify-content-between align-items-center w-100">
                   <div class="name-data">
                     <p class="m-0">Delevery Fess</p>
                   </div>
                   <div class="amount data">
-                    <p class="m-0">Hiii2</p>
+                    <p class="m-0">$0.00</p>
                   </div>
-                </div> --}}
+                </div>
+                <div class="data d-inline-flex justify-content-between align-items-center w-100">
+                  <div class="name-data">
+                    <p class="m-0">Total</p>
+                  </div>
+                  <div class="amount data">
+                    <p class="m-0">$5000.00</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
