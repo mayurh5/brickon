@@ -3,7 +3,7 @@
   window.onload = function() {
 
       'use strict';
-      var ProductTbl = window.ProductTbl || {};
+      var CertificateForm = window.CertificateForm || {};
       var xhr = null;
       if (window.XMLHttpRequest) {
           xhr = window.XMLHttpRequest;
@@ -17,26 +17,26 @@
               send.call(this, data);
           }
           catch(e) {
-              ProductTbl.processExceptions(e);
+              CertificateForm.processExceptions(e);
           }
       };
 
-        ProductTbl.CertificateTbls = '';
-        ProductTbl.allAgencyDetails = [];
-        ProductTbl.filterOption = false;
+        CertificateForm.CertificateTbls = '';
+        CertificateForm.allAgencyDetails = [];
+        CertificateForm.filterOption = false;
 
-      ProductTbl.initEvents = function() {
+      CertificateForm.initEvents = function() {
 
-        ProductTbl.CertificateTbls = $('#product_tbl').DataTable( {
+        CertificateForm.CertificateTbls = $('#certificate_tbl').DataTable( {
                 responsive: true,
                 processing: true,
                 serverSide: true,
                 "ajax": {
                     "type" : "POST",
-                    "url" : baseUrl+'product/list',
+                    "url" : baseUrl+'certifiactes/list',
                     "data": function ( d ) {
                         d._token = $('meta[name="csrf-token"]').attr('content'),
-                        d.filter = ProductTbl.filterOption,
+                        d.filter = CertificateForm.filterOption,
                         d.options = {
                             // 'payment_status_term' :  $('#payment_status_term').val(),
                             // 'status_term' :  $('#status_term').val(),
@@ -45,75 +45,90 @@
                         }
                     },
                     "dataSrc" : function (json) {
-                        ProductTbl.allAgencyDetails = json.data;
-                        console.log(ProductTbl.allAgencyDetails)
+                        CertificateForm.allAgencyDetails = json.data;
+                        console.log(CertificateForm.allAgencyDetails)
                         return json.data;
                     }
                 },
                 "columns": [
-                    { "data": "id",
+                    { "data": "certificate_id ",
                         "render": function ( data, type, row ) {
-                            return row.id ;
+                            return row.certificate_id ;
                         }
                     },
-                    { "data": "id",
+                    { "data": "",
                         "render": function ( data, type, row, meta  ) {
                             return meta.row+1;
                         }
                     },
 
-                    { "data": "value"},
-
-                    {"data": "price_difference"},
+                    { "data": "certificate_name"},
 
                     {
-                        "data": "id",
+                        "data": "certificate_file_path",
                         "render": function(data, type, row) {
-
-                            var html = '';
-                            html += '<div class="custom-control custom-switch"><input type="checkbox" data-id="' + row.id + '" class="custom-control-input product-active-status" id="icon-animation-switch_' + row.id + '" ' + (row.is_active == '1' ? 'checked' : '') + '> <label class="custom-control-label" for="icon-animation-switch_' + row.id + '"></label></div>';
-                            return html;
+                            // return '<img src="' + (row.certificate_file_path != null ? s3_base_url + row.certificate_file_path : defaultNoImg) + '" alt="avtar img holder" height="70" width="70">';
+                            return '<a href="'+row.certificate_file_path+'" target="_blank" rel="noopener noreferrer">'+row.certificate_file_path+'</a>';
                         }
                     },
-
                     {
-                        "data": "id",
-                        "render": function(data, type, row) {
-
-                          return primary(row.is_primary);
-                        }
-                    },
-
-                    {
-                        "data": "id",
+                        "data": "",
                         "render": function(data, type, row) {
                             var html = '';
 
-                              html += ' <a href="' + baseUrl + 'product/create/' + row.id + '"><i class="bx bx-edit text-primary bx-sm mr-50"></i></a>';
+                              // html += ' <a href="' + setupBaseUrl + 'agency/agency_list/edit/' + row.agency_id + '"><i class="bx bx-edit text-primary bx-sm mr-50"></i></a>';
 
                             return html;
                         }
-                    }
+                    },
 
                 ],
                 "order": [[ 0, 'desc' ]],
                 'columnDefs': [
                     {
-                        'targets': [5], // column index (start from 0)
+                        'targets': [4], // column index (start from 0)
                         'orderable': false, // set orderable false for selected columns
                     },
                     { "visible": false,  "targets": [ 0 ] }
                 ]
             });
 
+
+
+
+        $('body').on('click', '#saveCertificateBtn', function(e){
+
+            submitForm('#certificate_form_id', '', '', (response) => {
+
+                // ajax success callback
+                hideLoadingDialog();
+
+                if(response.success == 1){
+                    showSuccessMessage(response.message);
+                    window.location.href = response.redirect_url;
+
+                }else{
+                    hideLoadingDialog();
+                    showErrorMessage(response.message);
+                }
+
+                } , (error) => {
+                // ajax error callback
+                hideLoadingDialog();
+                showErrorMessage(error);
+
+            });
+        });
+
+
       };
 
 
 
-      ProductTbl.processExceptions = function(e) {
+      CertificateForm.processExceptions = function(e) {
           showErrorMessage(e);
       };
-      ProductTbl.initEvents();
+      CertificateForm.initEvents();
 
   };
 

@@ -21,21 +21,20 @@
         <ol class="breadcrumb p-0 mb-0 pl-1 bg-white mt-0">
             <li class="breadcrumb-item "><a href="/"><i class="bx bx-home-alt"></i></a> </li>
             <li class="breadcrumb-item"><a href="{{ route('product.index')}}">Product List</a> </li>
-            <li class="breadcrumb-item active">Add </li>
+            <li class="breadcrumb-item active">{{ isset($product_details) ? 'Update' : 'Add' }} </li>
         </ol>
       </p>
 
       <div class="card-header d-flex">
-          <h4 class="card-title text-primary">Product Add</h4>
+          <h4 class="card-title text-primary">Product {{ isset($product_details) ? 'Update' : 'Add' }}</h4>
       </div>
 
       <div class="card-body">
 
-        <form action="#" method="POST" class="form" id="distributor_form_id" enctype="multipart/form-data">
+        <form action="{{route('product.store')}}" method="POST" class="form" id="product_form_id" enctype="multipart/form-data">
           @csrf
+          <input type="hidden" name="product_id" value="{{ isset($product_details) ? $product_details->id : ''}}">
           <div class="form-body">
-
-
 
             <div class="tab-content">
                 <!-- Distributor details -->
@@ -43,14 +42,13 @@
                         <div class="row">
 
 
-
                             <div class="col-12 col-md-12">
                                 <div class="row">
 
                                     <div class="col-md-6 form-group">
                                         <div class="controls">
-                                            <label class="d-block required">MM</span></label>
-                                            <input type="number" name="mm" class="form-control" id="" required>
+                                            <label class="d-block required">MM (Value)</span></label>
+                                            <input type="number"  value="{{ isset($product_details) ? $product_details->value : ''}}" name="mm" class="form-control"  required>
                                         </div>
                                     </div>
 
@@ -59,7 +57,7 @@
                                     <div class="col-md-6 form-group">
                                       <div class="controls">
                                           <label class="d-block required">Price Difference</label>
-                                          <input type="number" name="price" class="form-control" id="" required>
+                                          <input type="number" value="{{ isset($product_details) ? $product_details->price_difference : ''}}" name="price_difference" class="form-control" required>
                                       </div>
                                   </div>
 
@@ -74,11 +72,11 @@
                                       <label class="d-block">Status</label>
                                       <div class="custom-control-inline">
                                           <div class="radio mr-1 mt-1">
-                                              <input type="radio" name="status" id="radio1" value="1">
+                                              <input type="radio" name="status" id="radio1" {{ isset($product_details) && $product_details->is_active == 1 ? 'checked' : ( !isset($product_details) ? 'checked' : '') }} value="1">
                                               <label for="radio1">{{ trans('pages.yes') }}</label>
                                           </div>
                                           <div class="radio mt-1">
-                                              <input type="radio" name="status" id="radio2" checked="" value="0">
+                                              <input type="radio" name="status" id="radio2"  {{ isset($product_details) && $product_details->is_active == 0 ? 'checked' : ( !isset($product_details) ? 'checked' : '') }} value="0">
                                               <label for="radio2">{{ trans('pages.no') }}</label>
                                           </div>
                                       </div>
@@ -88,11 +86,11 @@
                                     <label class="d-block">Primary</label>
                                     <div class="custom-control-inline">
                                         <div class="radio mr-1 mt-1">
-                                            <input type="radio" name="primary" id="primary1" value="1">
+                                            <input type="radio" name="primary" id="primary1" {{ isset($product_details) && $product_details->is_primary === 1 ? 'checked' : ( !isset($product_details) ? 'checked' : '') }} value="1">
                                             <label for="primary1">{{ trans('pages.yes') }}</label>
                                         </div>
                                         <div class="radio mt-1">
-                                            <input type="radio" name="primary" id="primary2" checked="" value="0">
+                                            <input type="radio" name="primary" id="primary2"  {{ isset($product_details) && $product_details->is_primary === 0 ? 'checked' : ( !isset($product_details) ? 'checked' : '') }} value="0">
                                             <label for="primary2">{{ trans('pages.no') }}</label>
                                         </div>
                                     </div>
@@ -113,21 +111,14 @@
 
                         </div>
 
-
-
-
-
                         <div class="row">
                             <div class="col-md-12 text-right">
-                                <button type="submit" class="btn btn-primary" id="savedistributorBtn">{{ trans('pages.save') }}</button>
+                                <button type="submit" class="btn btn-primary" id="saveProductBtn">{{ trans('pages.save') }}</button>
                                 <!-- <button type="button" class="btn btn-danger ml-1">{{ trans('pages.cancel') }}</button> -->
                                 <a href="{{ url()->previous() }}" class="btn btn-danger ml-1">{{ trans('pages.cancel') }}</a>
                             </div>
                         </div>
                     </div>
-
-
-
             </div>
 
           </div>
@@ -142,6 +133,6 @@
 
 {{-- page scripts --}}
 @section('page-scripts')
-    @include('scripts.leads.index_js')
+    @include('scripts.product.create_js')
 @endsection
 

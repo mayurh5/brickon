@@ -55,6 +55,8 @@ Route::group(['namespace'=>'admin'], function () {
 
     Route::get('/', [CertifiactesController::class, 'index'])->name('index');
     Route::get('/create', [CertifiactesController::class, 'create'])->name('create');
+    Route::post('/store', [CertifiactesController::class, 'store'])->name('store');
+    Route::post('/list', [CertifiactesController::class, 'certificate_list_json']);
 
   });
 
@@ -75,7 +77,9 @@ Route::group(['namespace'=>'admin'], function () {
   Route::group(['prefix' => 'product', 'namespace'=>'product', 'as'=>'product.'], function () {
 
     Route::get('/', [ProductController::class, 'index'])->name('index');
-    Route::get('/create', [ProductController::class, 'create'])->name('create');
+    Route::get('/create/{id?}', [ProductController::class, 'create'])->name('create');
+    Route::post('/store/{id?}', [ProductController::class, 'store'])->name('store');
+    Route::post('/list', [ProductController::class, 'productListJson'])->name('productListJson');
 
   });
 

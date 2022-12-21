@@ -34,7 +34,7 @@
 
         <div class="card-body">
 
-            <form method="" action="#" class="form" id="hr_employee_form_id" enctype="multipart/form-data">
+            <form method="post" action="{{route('certifiactes.store')}}" class="form" id="certificate_form_id" enctype="multipart/form-data">
                 @csrf
                 <div class="form-body">
 
@@ -49,13 +49,13 @@
                                     <div class="col-md-12 col-12">
                                         <div class="card border shadow-none mb-1 app-file-info">
                                         <div class="card-body p-1 text-center">
-                                            <div id="profile_pic_1_preview" class="image-fixed"><img src="#" alt="" style="object-fit: cover;" height="110" width="110" onerror="this.src = '{{Helper::defaultImage()}}';"></div>
+                                            <div id="certificate_doc_1_preview" class="image-fixed"><img src="#" alt="" style="object-fit: cover;" height="110" width="110" onerror="this.src = '{{Helper::defaultImage()}}';"></div>
                                         </div>
                                         <div class="ccard-footer pl-1 pr-1">
                                             <div class="form-group add-new-file text-center">
                                                 <label>Add Pdf</label>
-                                                <label for="profile_pic_1" class="btn btn-primary btn-block glow  add-file-btn text-capitalize">{{ trans('pages.select') }}</label>
-                                                <input type="file" name="profile_pic" class="d-none" id="profile_pic_1">
+                                                <label for="certificate_doc_1" class="btn btn-primary btn-block glow  add-file-btn text-capitalize">{{ trans('pages.select') }}</label>
+                                                <input type="file" name="certificate_doc" class="d-none" id="certificate_doc_1">
                                             </div>
                                         </div>
                                         </div>
@@ -74,7 +74,7 @@
 
                             <div class="row">
                                 <div class="col-md-12 text-right">
-                                    <button type="submit" class="btn btn-primary" id="saveHrEmployeeBtn">{{ trans('pages.save') }}</button>
+                                    <button type="submit" class="btn btn-primary" id="saveCertificateBtn">{{ trans('pages.save') }}</button>
                                     <button type="button" class="btn btn-danger ml-1">{{ trans('pages.cancel') }}</button>
                                 </div>
                             </div>
@@ -106,5 +106,5 @@
 
 {{-- page scripts --}}
 @section('page-scripts')
-@include('scripts.users.index_js')
+@include('scripts.certificates.index_js')
 @endsection

@@ -24,52 +24,30 @@
                   </div>
               </div>
 
-            <div class="card-body">
-                <!-- datatable start -->
+              <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table add-rows" id="stock_list_tbl">
-                        <thead>
-                            <tr>
-                              {{-- <th style="display:none;"></th> --}}
-                              <th>#</th>
-                              <th>MM</th>
-                              <th>Price Difference</th>
-                              <th>Status</th>
-                              <th>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                          <tr>
-                            <td>01</td>
-                            <td>20</td>
-                            <td>500</td>
-                            <td>Active</td>
-                            <td>
-                              <a href="#" data-id="1" class="float-top"><i class="bx bx-edit text-primary bx-sm"></i></a>
-                              <a href="#" data-id="1" class="float-top"><i class="bx bx-trash text-danger bx-sm"></i></a>
-                            </td>
-                          </tr>
-
-                        </tbody>
-                    </table>
+                  <table class="table add-rows" id="product_tbl">
+                    <thead>
+                      <tr>
+                        <th style="display:none;"></th>
+                        <th>#</th>
+                        <th>MM</th>
+                        <th>Price Difference</th>
+                        <th>Status</th>
+                        <th>Primary</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                  </table>
                 </div>
-                <!-- datatable ends -->
-            </div>
+              </div>
 
         </div>
     </div>
 </section>
 @endsection
 
-{{-- vendor scripts --}}
-@section('vendor-scripts')
-
-@endsection
-
 {{-- page scripts --}}
 @section('page-scripts')
-<script src="{{asset('js/scripts/datatables/datatable.js')}}"></script>
     @include('scripts.product.index_js')
 @endsection

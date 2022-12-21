@@ -27,12 +27,6 @@
       "icon": "notebook"
     },
     {
-      "url": "distributor",
-      "name": "Distributors",
-      "slug": "distributor.index",
-      "icon": "bank"
-    },
-    {
       "url": "banner",
       "name": "Banners",
       "slug": "banner.index",

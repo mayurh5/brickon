@@ -24,37 +24,21 @@
                   </div>
               </div>
 
-            <div class="card-body">
-                <!-- datatable start -->
+              <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table add-rows" id="stock_list_tbl">
-                        <thead>
-                            <tr>
-                              {{-- <th style="display:none;"></th> --}}
-                              <th>#</th>
-                              <th>Title</th>
-                              <th>Document</th>
-                              <th>Action</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                          <tr>
-                            <td>01</td>
-                            <td>Test</td>
-                            <td><a href="#">Doc Name</a></td>
-                            <td>
-                              <a href="#" data-id="1" class="float-top"><i class="bx bx-edit text-primary bx-sm"></i></a>
-                              <a href="#" data-id="1" class="float-top"><i class="bx bx-trash text-danger bx-sm"></i></a>
-                            </td>
-                          </tr>
-
-                        </tbody>
-                    </table>
+                  <table class="table add-rows" id="certificate_tbl">
+                    <thead>
+                      <tr>
+                        <th style="display:none;"></th>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Document</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                  </table>
                 </div>
-                <!-- datatable ends -->
-            </div>
+              </div>
 
         </div>
     </div>
@@ -68,6 +52,5 @@
 
 {{-- page scripts --}}
 @section('page-scripts')
-<script src="{{asset('js/scripts/datatables/datatable.js')}}"></script>
-    @include('scripts.users.index_js')
+@include('scripts.certificates.index_js')
 @endsection
