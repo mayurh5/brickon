@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Certificate;
+use App\Models\Assets;
 use Validator;
 use Log;
 
@@ -16,22 +16,51 @@ class CertifiactesController extends Controller
 
   }
 
-  public function create(Request $request){
-
-    return view('admin.certificates.create');
-
-  }
-
-  public function store(Request $request){
+  public function create($id = ''){
 
     try {
 
-      $validator = Validator::make($request->all(), [
+      if(!empty($id)){
 
-        'title' => 'required',
-        'certificate_doc' => 'required'
+        $data = Assets::find($id);
+        $data = Assets::find($id);
+        if($data){
+          return view('admin.certificates.create', compact('data'));
+        } else {
+          return redirect()->route('dashboard')->with(['error' => "Something want wrong.", 'status' => 0]);
+        }
 
-      ]);
+      } else {
+
+        return view('admin.certificates.create');
+
+      }
+
+    }catch(\Exception $e) {
+      Log::info("ProductController create - ". $e->getMessage());
+      return redirect()->route('product.index')->with(['error' => "Something want wrong.", 'status' => 0]);
+
+    }
+
+  }
+
+  public function store(Request $request, $id = ''){
+
+    try {
+
+      if(!empty($request->id)){
+
+        $validator = Validator::make( $request->all(),[
+          'title' => 'required',
+        ]);
+
+      }else{
+
+          $validator = Validator::make( $request->all(),[
+            'title' => 'required',
+            'certificate_doc' => 'required'
+          ]);
+      }
 
       if ($validator->fails()) {
 
@@ -40,25 +69,47 @@ class CertifiactesController extends Controller
 
       } else {
 
-            $certificate = new Certificate;
-            $certificate->certificate_name = $request->title;
+          if(!empty($request->id)){
 
+            $certificate = Assets::where('id',$request->id)->first();
+
+            $certificate->title = $request->title;
+            $certificate->save();
+
+          } else {
+
+            $certificate = new Assets;
+            $certificate->title = $request->title;
+            $certificate->type = config('global.file_type.certificate');
+
+          }
 
             if ($request->hasFile('certificate_doc')){
+
+              if(!empty($request->id)){
+
+                  // remove old image from folder
+                  \Helper::deleteFile($certificate->path);
+
+              }
 
                 $file = $request->file('certificate_doc');
                 $file_name_to_store = time();
                 $file_uploaded_path ='images/certificate';
+                $file_type = $request->file('certificate_doc')->getClientOriginalExtension();
+
 
                 $file_path = \Helper::upload_file($file, "", $file_name_to_store, $file_uploaded_path, $is_base64_file = false);
-                $certificate->certificate_file_path = $file_path;
+
+                $certificate->file_type = $file_type;
+                $certificate->path = $file_path;
 
 
             }
 
               $certificate->save();
-
-              return response()->json( [ 'success' => 1, 'message' => 'Certificated Added successfully!', 'redirect_url' => route('certifiactes.index')], 200 );
+              $response_array = ['success' => 1, 'message' => !empty($request->id) ? "Certificat updated sucessfully." : "Certificated added sucessfully." , 'redirect_url' => route('certifiactes.index')];
+              return response()->json($response_array, 200);
       }
 
     }catch(\Exception $e) {
@@ -79,8 +130,10 @@ class CertifiactesController extends Controller
             $columnName = $request->input('columns')[$columnIndex]['data']; // Column name
             $columnSortOrder = $request->input('order')[0]['dir']; // asc or desc value
 
-            $main_query =  Certificate::from('mst_certificate')
-                                  ->select('mst_certificate.*')
+            $main_query =  Assets::from('assets')
+                                  ->where('assets.type',config('global.file_type.certificate'))
+                                  // ->where('assets.is_active',1)
+                                  ->select('assets.*')
                                   ->orderBy($columnName, $columnSortOrder);
 
             $data_list_for_count = $main_query->get();  // group by and direct count not working
@@ -96,8 +149,8 @@ class CertifiactesController extends Controller
 
                 $search = $request->input('search.value');
 
-                $search_query = $main_query->where('certificate_name','LIKE',"%{$search}%")
-                                            ->orWhere('certificate_detail','LIKE',"%{$search}%");
+                $search_query = $main_query->where('title','LIKE',"%{$search}%")
+                                            ->orWhere('path','LIKE',"%{$search}%");
 
                 $appointments = $search_query->paginate($limit, ['*'], 'page', $page_index);
 
@@ -119,6 +172,24 @@ class CertifiactesController extends Controller
     }catch(\Exception $e) {
       Log::info("CertifiactesController index - ". $e->getMessage());
       return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+
+    }
+  }
+
+  public function status_update_doc(Request $request){
+
+    try {
+
+      $details = Assets::find($request->id);
+      $details->is_active = $request->is_active;
+      $details->save();
+
+      return response()->json(['success' => 1, 'message' => trans('pages.crud_messages.is_active_update', [ 'attribute' => 'Document'])]);
+
+
+    }catch(\Exception $e) {
+      Log::info("CertifiactesController status_update_doc - ". $e->getMessage());
+      return redirect()->route('certifiactes.index')->with(['error' => "Something want wrong.", 'status' => 0]);
 
     }
   }

@@ -24,20 +24,20 @@
             <ol class="breadcrumb p-0 mb-0 pl-1 bg-white mt-0">
                 <li class="breadcrumb-item "><a href="/"><i class="bx bx-home-alt"></i></a> </li>
                 <li class="breadcrumb-item"><a href="{{route('certifiactes.index')}}">Certifiactes List</a> </li>
-                <li class="breadcrumb-item active">{{ trans('pages.add_with_attr', ['attribute' => 'Certifiactes']) }}</li>
+                <li class="breadcrumb-item active">{{ isset($data) ? 'Update' : 'Add' }}</li>
             </ol>
         </p>
 
         <div class="card-header pt-75">
-            <h4 class="card-title text-primary">{{ trans('pages.add_with_attr', ['attribute' => 'Certifiactes']) }}</h4>
+            <h4 class="card-title text-primary">Certifiacte {{ isset($data) ? 'Update' : 'Add' }}</h4>
         </div>
 
         <div class="card-body">
 
             <form method="post" action="{{route('certifiactes.store')}}" class="form" id="certificate_form_id" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="id" value="{{ isset($data) ? $data->id : ''}}">
                 <div class="form-body">
-
 
                     <div class="tab-content">
 
@@ -49,7 +49,7 @@
                                     <div class="col-md-12 col-12">
                                         <div class="card border shadow-none mb-1 app-file-info">
                                         <div class="card-body p-1 text-center">
-                                            <div id="certificate_doc_1_preview" class="image-fixed"><img src="#" alt="" style="object-fit: cover;" height="110" width="110" onerror="this.src = '{{Helper::defaultImage()}}';"></div>
+                                            <div id="certificate_doc_1_preview" class="image-fixed"><img src="{{ isset($data) && !empty($data->path) ? asset($data->path) : ''}}" alt="" style="object-fit: cover;" height="110" width="110" onerror="this.src = '{{Helper::defaultImage()}}';"></div>
                                         </div>
                                         <div class="ccard-footer pl-1 pr-1">
                                             <div class="form-group add-new-file text-center">
@@ -65,7 +65,7 @@
                                 <div class="col-md-12 form-group">
                                   <div class="controls">
                                     <label>Title</label>
-                                    <input type="text" class="form-control" name="title" required>
+                                    <input type="text" class="form-control" value="{{ isset($data) ? $data->title : ''}}" name="title" required>
                                   </div>
                               </div>
 

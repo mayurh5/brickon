@@ -27,35 +27,21 @@
             <div class="card-body">
                 <!-- datatable start -->
                 <div class="table-responsive">
-                    <table class="table add-rows" id="stock_list_tbl">
+                    <table class="table add-rows" id="banner_tbl">
                         <thead>
                             <tr>
                               {{-- <th style="display:none;"></th> --}}
+                              <th style="display:none;"></th>
                               <th>#</th>
-                              <th>IMG</th>
-                              <th class="white-space-nowrap">	POSITION</th>
-                              <th>ORDER</th>
+                              <th>Title</th>
+                              <th>Order</th>
                               <th>Expiry</th>
-                              <th>Active</th>
-                              <th>Actions</th>
+                              <th>Status</th>
+                              <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                          <tr>
-                            <td>01</td>
-                            <td><img src="#" alt="users avatar"
-                              class="users-avatar-shadow media-bordered rounded-circle" target="_blank" height="40" width="40"  onerror="this.src = '{{defaultImage()}}';"></td>
-                              <td>03</td>
-                              <td>03</td>
-                              <td>27-09-2022</td>
-                              <td>11-09-2022</td>
-                              <td>
-                                <a href="#" data-id="1" class="float-top"><i class="bx bx-edit text-primary bx-sm"></i></a>
-                                <a href="#" data-id="1" class="float-top"><i class="bx bx-trash text-danger bx-sm"></i></a>
-                              </td>
-                          </tr>
-
 
                         </tbody>
                     </table>
@@ -75,6 +61,5 @@
 
 {{-- page scripts --}}
 @section('page-scripts')
-<script src="{{asset('js/scripts/datatables/datatable.js')}}"></script>
     @include('scripts.banner.index_js')
 @endsection

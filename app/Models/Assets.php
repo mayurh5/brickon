@@ -10,5 +10,4 @@ class Assets extends Model
     use HasFactory;
 
     protected $table='assets';
-    protected $primaryKey = 'application_id';
 }

@@ -24,18 +24,19 @@
             <ol class="breadcrumb p-0 mb-0 pl-1 bg-white mt-0">
                 <li class="breadcrumb-item "><a href="/"><i class="bx bx-home-alt"></i></a> </li>
                 <li class="breadcrumb-item"><a href="{{route('application.index')}}">Application List</a> </li>
-                <li class="breadcrumb-item active">{{ trans('pages.add_with_attr', ['attribute' => 'Application']) }}</li>
+                <li class="breadcrumb-item active">{{ isset($data) ? 'Update' : 'Add' }}</li>
             </ol>
         </p>
 
         <div class="card-header pt-75">
-            <h4 class="card-title text-primary">{{ trans('pages.add_with_attr', ['attribute' => 'Application']) }}</h4>
+            <h4 class="card-title text-primary">Application {{ isset($data) ? 'Update' : 'Add' }}</h4>
         </div>
 
         <div class="card-body">
 
-            <form method="" action="#" class="form" id="hr_employee_form_id" enctype="multipart/form-data">
+            <form method="POST" action="{{route('application.store')}}" class="form" id="application_form_id" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="id" value="{{ isset($data) ? $data->id : ''}}">
                 <div class="form-body">
 
 
@@ -49,13 +50,13 @@
                                     <div class="col-md-12 col-12">
                                         <div class="card border shadow-none mb-1 app-file-info">
                                         <div class="card-body p-1 text-center">
-                                            <div id="profile_pic_1_preview" class="image-fixed"><img src="#" alt="" style="object-fit: cover;" height="110" width="110" onerror="this.src = '{{Helper::defaultImage()}}';"></div>
+                                            <div id="profile_pic_1_preview" class="image-fixed"><img src="{{ isset($data) && !empty($data->path) ? asset($data->path) : ''}}" alt="" style="object-fit: cover;" height="110" width="110" onerror="this.src = '{{Helper::defaultImage()}}';"></div>
                                         </div>
                                         <div class="ccard-footer pl-1 pr-1">
                                             <div class="form-group add-new-file text-center">
                                                 <label>Add Pdf</label>
                                                 <label for="profile_pic_1" class="btn btn-primary btn-block glow  add-file-btn text-capitalize">{{ trans('pages.select') }}</label>
-                                                <input type="file" name="profile_pic" class="d-none" id="profile_pic_1">
+                                                <input type="file" name="application_doc" class="d-none" id="profile_pic_1">
                                             </div>
                                         </div>
                                         </div>
@@ -65,7 +66,7 @@
                                 <div class="col-md-12 form-group">
                                   <div class="controls">
                                     <label>Title</label>
-                                    <input type="text" class="form-control" name="title" required>
+                                    <input type="text" class="form-control" name="title" value="{{ isset($data) ? $data->title : ''}}" required>
                                   </div>
                               </div>
 
@@ -74,7 +75,7 @@
 
                             <div class="row">
                                 <div class="col-md-12 text-right">
-                                    <button type="submit" class="btn btn-primary" id="saveHrEmployeeBtn">{{ trans('pages.save') }}</button>
+                                    <button type="submit" class="btn btn-primary" id="saveApplicationBtn">{{ trans('pages.save') }}</button>
                                     <button type="button" class="btn btn-danger ml-1">{{ trans('pages.cancel') }}</button>
                                 </div>
                             </div>
@@ -106,5 +107,5 @@
 
 {{-- page scripts --}}
 @section('page-scripts')
-@include('scripts.users.index_js')
+@include('scripts.application.index_js')
 @endsection

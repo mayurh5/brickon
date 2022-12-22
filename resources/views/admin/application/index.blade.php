@@ -27,28 +27,20 @@
             <div class="card-body">
                 <!-- datatable start -->
                 <div class="table-responsive">
-                    <table class="table add-rows" id="stock_list_tbl">
+                    <table class="table add-rows" id="application_tbl">
                         <thead>
                             <tr>
-                              {{-- <th style="display:none;"></th> --}}
+                              <th style="display:none;"></th>
                               <th>#</th>
                               <th>Title</th>
                               <th>Document</th>
+                              <th>Status</th>
                               <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
 
-                          <tr>
-                            <td>01</td>
-                            <td>Test</td>
-                            <td><a href="#">Doc Name</a></td>
-                            <td>
-                              <a href="#" data-id="1" class="float-top"><i class="bx bx-edit text-primary bx-sm"></i></a>
-                              <a href="#" data-id="1" class="float-top"><i class="bx bx-trash text-danger bx-sm"></i></a>
-                            </td>
-                          </tr>
 
                         </tbody>
                     </table>
@@ -68,6 +60,5 @@
 
 {{-- page scripts --}}
 @section('page-scripts')
-<script src="{{asset('js/scripts/datatables/datatable.js')}}"></script>
-    {{-- @include('scripts.users.index_js') --}}
+@include('scripts.application.index_js')
 @endsection

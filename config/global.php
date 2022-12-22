@@ -8,6 +8,14 @@ return [
     'active' => 'active'
   ],
 
+  'file_type' => [
+    'banner' => 'banner',
+    'certificate' => 'certificate',
+    'application' => 'application',
+    'product_quality' => 'product_quality',
+    'brochure' => 'brochure'
+  ],
+
   'user_type' => [
     'admin' => 'admin',
     'member' => 'member',
@@ -23,5 +31,7 @@ return [
     'confirmed' => 'confirmed',
     'canceled' => 'canceled',
   ],
+
+
 
 ];

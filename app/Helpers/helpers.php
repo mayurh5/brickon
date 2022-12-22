@@ -441,7 +441,7 @@ class Helper
       $file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
 
       $base_name = basename($file_name, "." . $file_extension);
-      $file_name_to_store  = $file_name_to_store . Str::slug($base_name) . '.' . $file_extension;
+      $file_name_to_store  = Str::slug($base_name) . '.' . $file_extension;
 
       if($default_storage == 'public' || $default_storage == 'local'){
 
@@ -474,6 +474,13 @@ class Helper
 
       $file_path = $file_uploaded_path . '/' . $file_name_to_store ;
       return $file_path;
+  }
+
+  public static function deleteFile($img){
+
+    if (!empty($img) && File::exists($img)){
+    File::delete($img);
+    }
   }
 
  public static function UniqueUserName($first_name,$last_name)

@@ -54,9 +54,10 @@ Route::group(['namespace'=>'admin'], function () {
   Route::group(['prefix' => 'certifiactes', 'namespace'=>'certifiactes', 'as'=>'certifiactes.'], function () {
 
     Route::get('/', [CertifiactesController::class, 'index'])->name('index');
-    Route::get('/create', [CertifiactesController::class, 'create'])->name('create');
-    Route::post('/store', [CertifiactesController::class, 'store'])->name('store');
+    Route::get('/create/{id?}', [CertifiactesController::class, 'create'])->name('create');
+    Route::post('/store/{id?}', [CertifiactesController::class, 'store'])->name('store');
     Route::post('/list', [CertifiactesController::class, 'certificate_list_json']);
+    Route::post('/status/update', [CertifiactesController::class, 'status_update_doc']);
 
   });
 
@@ -70,7 +71,9 @@ Route::group(['namespace'=>'admin'], function () {
   Route::group(['prefix' => 'banner', 'namespace'=>'banner', 'as'=>'banner.'], function () {
 
     Route::get('/', [BannerController::class, 'index'])->name('index');
-    Route::get('/create', [BannerController::class, 'create'])->name('create');
+    Route::get('/create/{id?}', [BannerController::class, 'create'])->name('create');
+    Route::post('/store/{id?}', [BannerController::class, 'store'])->name('store');
+    Route::post('/list', [BannerController::class, 'banner_list_json']);
 
   });
 
@@ -86,7 +89,10 @@ Route::group(['namespace'=>'admin'], function () {
   Route::group(['prefix' => 'application', 'namespace'=>'application', 'as'=>'application.'], function () {
 
     Route::get('/', [ApplicationController::class, 'index'])->name('index');
-    Route::get('/create', [ApplicationController::class, 'create'])->name('create');
+    Route::get('/create/{id?}', [ApplicationController::class, 'create'])->name('create');
+    Route::post('/store/{id?}', [ApplicationController::class, 'store'])->name('store');
+    Route::post('/list', [ApplicationController::class, 'application_list_json'])->name('application_list_json');
+
 
   });
 

@@ -298,9 +298,9 @@
                 reader.readAsDataURL(this.files[0]);
 
             } else {
-
+              
                 $('#' + selector + '_preview').append(
-                    '<img class="img-fluid" src="{{ asset('/no_image.jpg') }}">');
+                    '<img class="img-fluid" src="{{ asset('/file.jpg') }}">');
             }
 
         }

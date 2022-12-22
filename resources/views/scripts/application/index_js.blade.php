@@ -2,7 +2,7 @@
   window.onload = function() {
 
       'use strict';
-      var BannerTbl = window.BannerTbl || {};
+      var ApplicationForm = window.ApplicationForm || {};
       var xhr = null;
       if (window.XMLHttpRequest) {
           xhr = window.XMLHttpRequest;
@@ -15,26 +15,26 @@
           try {
               send.call(this, data);
           } catch (e) {
-              BannerTbl.processExceptions(e);
+              ApplicationForm.processExceptions(e);
           }
       };
 
-      BannerTbl.BannerTbls = '';
-      BannerTbl.allAgencyDetails = [];
-      BannerTbl.filterOption = false;
+      ApplicationForm.CertificateTbls = '';
+      ApplicationForm.allAgencyDetails = [];
+      ApplicationForm.filterOption = false;
 
-      BannerTbl.initEvents = function() {
+      ApplicationForm.initEvents = function() {
 
-          BannerTbl.BannerTbls = $('#banner_tbl').DataTable({
+          ApplicationForm.CertificateTbls = $('#application_tbl').DataTable({
               responsive: true,
               processing: true,
               serverSide: true,
               "ajax": {
                   "type": "POST",
-                  "url": baseUrl + 'banner/list',
+                  "url": baseUrl + 'application/list',
                   "data": function(d) {
                       d._token = $('meta[name="csrf-token"]').attr('content'),
-                          d.filter = BannerTbl.filterOption,
+                          d.filter = ApplicationForm.filterOption,
                           d.options = {
                               // 'payment_status_term' :  $('#payment_status_term').val(),
                               // 'status_term' :  $('#status_term').val(),
@@ -43,8 +43,8 @@
                           }
                   },
                   "dataSrc": function(json) {
-                      BannerTbl.allAgencyDetails = json.data;
-                      console.log(BannerTbl.allAgencyDetails)
+                      ApplicationForm.allAgencyDetails = json.data;
+                      console.log(ApplicationForm.allAgencyDetails)
                       return json.data;
                   }
               },
@@ -55,7 +55,7 @@
                       }
                   },
                   {
-                      "data": "id",
+                      "data": "",
                       "render": function(data, type, row, meta) {
                           return meta.row + 1;
                       }
@@ -66,35 +66,36 @@
                   },
 
                   {
-                      "data": "order_no"
+                      "data": "path",
+                      "render": function(data, type, row) {
+                          // return '<img src="' + (row.certificate_file_path != null ? s3_base_url + row.certificate_file_path : defaultNoImg) + '" alt="avtar img holder" height="70" width="70">';
+                          return '<a href="' + row.path +
+                              '" target="_blank" rel="noopener noreferrer">' + row.path +
+                              '</a>';
+                      }
                   },
-
                   {
-                      "data": "expiry_date"
+                      "data": "id",
+                      "render": function(data, type, row) {
+
+                          var html = '';
+                          html +=
+                              '<div class="custom-control custom-switch"><input type="checkbox" data-id="' +
+                              row.id +
+                              '" class="custom-control-input application-active-status" id="icon-animation-switch_' +
+                              row.id + '" ' + (row.is_active == '1' ? 'checked' : '') +
+                              '> <label class="custom-control-label" for="icon-animation-switch_' +
+                              row.id + '"></label></div>';
+                          return html;
+                      }
                   },
-                  {
-                        "data": "id",
-                        "render": function(data, type, row) {
-
-                            var html = '';
-                            html +=
-                                '<div class="custom-control custom-switch"><input type="checkbox" data-id="' +
-                                row.id +
-                                '" class="custom-control-input banner-active-status" id="icon-animation-switch_' +
-                                row.id + '" ' + (row.is_active == '1' ? 'checked' : '') +
-                                '> <label class="custom-control-label" for="icon-animation-switch_' +
-                                row.id + '"></label></div>';
-                            return html;
-                        }
-                    },
-
-
                   {
                       "data": "",
                       "render": function(data, type, row) {
                           var html = '';
 
-                          html += ' <a href="' + baseUrl + 'banner/create/' + row.id +'"><i class="bx bx-edit text-primary bx-sm mr-50"></i></a>';
+                          html += ' <a href="' + baseUrl + 'application/create/' + row.id +
+                              '"><i class="bx bx-edit text-primary bx-sm mr-50"></i></a>';
 
                           return html;
                       }
@@ -105,7 +106,7 @@
                   [0, 'desc']
               ],
               'columnDefs': [{
-                      'targets': [6], // column index (start from 0)
+                      'targets': [4], // column index (start from 0)
                       'orderable': false, // set orderable false for selected columns
                   },
                   {
@@ -116,7 +117,33 @@
           });
 
 
-          $('body').on('change', '.banner-active-status', function() {
+
+
+          $('body').on('click', '#saveApplicationBtn', function(e) {
+
+              submitForm('#application_form_id', '', '', (response) => {
+
+                  // ajax success callback
+                  hideLoadingDialog();
+
+                  if (response.success == 1) {
+                      showSuccessMessage(response.message);
+                      window.location.href = response.redirect_url;
+
+                  } else {
+                      hideLoadingDialog();
+                      showErrorMessage(response.message);
+                  }
+
+              }, (error) => {
+                  // ajax error callback
+                  hideLoadingDialog();
+                  showErrorMessage(error);
+
+              });
+          });
+
+          $('body').on('change', '.application-active-status', function() {
 
               var formData = new FormData();
               formData.append('id', $(this).attr('data-id'));
@@ -128,7 +155,7 @@
                       if (response.success != '1') {
                           showErrorMessage(response.message);
                       }
-                  }, BannerTbl.processExceptions, 'POST');
+                  }, ApplicationForm.processExceptions, 'POST');
 
           });
 
@@ -137,10 +164,10 @@
 
 
 
-      BannerTbl.processExceptions = function(e) {
+      ApplicationForm.processExceptions = function(e) {
           showErrorMessage(e);
       };
-      BannerTbl.initEvents();
+      ApplicationForm.initEvents();
 
   };
 </script>
