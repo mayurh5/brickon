@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LeadController;
+use App\Http\Controllers\API\DocumentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,6 +41,10 @@ Route::middleware(['cors'])->group(function () {
       Route::post('get_lead_list_by_user', [LeadController::class, 'get_lead_list_by_user']);
       Route::post('get_lead_detail_by_lead_id', [LeadController::class, 'get_lead_detail_by_lead_id']);
       Route::post('get_product_list', [LeadController::class, 'get_product_list']);
+
+      Route::get('get_documnent_type', [DocumentController::class, 'get_documnent_type']);
+      Route::post('get_document_list_by_type', [DocumentController::class, 'get_document_list_by_type']);
+
 
     });
 

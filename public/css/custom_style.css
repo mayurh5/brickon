@@ -506,3 +506,18 @@ h4.numericbottom {
   color: #475F7B !important;
   font-weight: 600;
 }
+
+
+/* Datatable sorting */
+
+.table.dataTable thead .sorting:after, .table.dataTable thead .sorting_asc:after, .table.dataTable thead .sorting_desc:after, .table.dataTable thead .sorting_desc_disabled:after {
+  content: "\e9ac";
+  padding-top: 0.2em;
+  font-size: 1.1rem;
+}
+
+.table.dataTable thead .sorting:before, .table.dataTable thead .sorting_asc:before, .table.dataTable thead .sorting_desc:before, .table.dataTable thead .sorting_desc_disabled:before {
+  content: "\e9b9";
+  font-size: 1.1rem;
+  top: 0px;
+}

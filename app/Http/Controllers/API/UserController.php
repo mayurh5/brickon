@@ -171,7 +171,7 @@ class UserController extends Controller
             $member->display_name = \Helper::UniqueUserName($request->first_name,$request->last_name);
             $member->auth_token = $this->apiToken;
             $member->fcm_token = $request->fcm_token;
-            $member->role_type = $request->role_type; // as per logic
+            $member->role_type = config('global.user_type.member'); // as per logic
             $member->is_active = 1;
             $member->save();
 
@@ -327,7 +327,6 @@ class UserController extends Controller
           return response()->json(["status" => 0, "message" => "User not found!"]);
       }
   }
-
 
   public function update_user_details_by_id(Request $request)
   {

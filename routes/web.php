@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ContactUsController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +24,16 @@ use App\Http\Controllers\Admin\ContactUsController;
 |
 */
 
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
+Route::get('/login', [LoginController::class, 'show_login_form'])->name('show_login_form');
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 
-// dashboard Routes
 // Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
-Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard');
+Route::middleware(['auth'])->group(function () {
 
+  Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+  Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard');
 
 Route::group(['namespace'=>'admin'], function () {
 
@@ -47,6 +51,7 @@ Route::group(['namespace'=>'admin'], function () {
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/create', [UserController::class, 'create'])->name('create');
     Route::get('/view', [UserController::class, 'view'])->name('view');
+    Route::post('/list', [UserController::class, 'user_json_list']);
 
 
   });
@@ -99,15 +104,21 @@ Route::group(['namespace'=>'admin'], function () {
   Route::group(['prefix' => 'setting', 'namespace'=>'setting', 'as'=>'setting.'], function () {
 
     Route::get('/', [SettingController::class, 'index'])->name('index');
+    Route::post('update/', [SettingController::class, 'update'])->name('update');
 
   });
 
   Route::group(['prefix' => 'contact_us', 'namespace'=>'contact_us', 'as'=>'contact_us.'], function () {
 
     Route::get('/', [ContactUsController::class, 'index'])->name('index');
+    Route::post('update/', [ContactUsController::class, 'update'])->name('update');
 
   });
 
 
 
 });
+
+});
+
+

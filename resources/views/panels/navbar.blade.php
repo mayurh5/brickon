@@ -12,7 +12,7 @@ data-bgcolor="@if(isset($configData['navbarBgColor'])){{$configData['navbarBgCol
         <ul class="nav navbar-nav float-right">
 
           <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon bx bx-fullscreen"></i></a></li>
-          
+
           <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon bx bx-bell bx-tada bx-flip-horizontal"></i><span class="badge badge-pill badge-danger badge-up">5</span></a>
             <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
               <li class="dropdown-menu-header">
@@ -129,20 +129,17 @@ data-bgcolor="@if(isset($configData['navbarBgColor'])){{$configData['navbarBgCol
           <li class="dropdown dropdown-user nav-item">
             <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
               <div class="user-nav d-sm-flex d-none">
-                <span class="user-name">John Doe</span>
-                <span class="user-status text-muted">Available</span>
+                <span class="user-name">{{ auth()->user()->company_name }}</span>
+                <span class="user-status text-muted">{{ auth()->user()->association_type }}</span>
               </div>
               <span><img class="round" src="{{asset('images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="40" width="40"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right pb-0">
               <a class="dropdown-item" href="#">
-                <i class="bx bx-user mr-50"></i> Edit Profile
-              </a>
-              <a class="dropdown-item" href="#">
-                <i class="bx bx-envelope mr-50"></i> My Inbox
+                <i class="bx bx-user mr-50"></i> Change Password
               </a>
               <div class="dropdown-divider mb-0"></div>
-              <a class="dropdown-item" href="#"><i class="bx bx-power-off mr-50"></i> Logout</a>
+              <a class="dropdown-item" href="{{ route ('logout')}}"><i class="bx bx-power-off mr-50"></i> Logout</a>
             </div>
           </li>
         </ul>

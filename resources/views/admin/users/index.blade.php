@@ -27,41 +27,21 @@
             <div class="card-body">
                 <!-- datatable start -->
                 <div class="table-responsive">
-                    <table class="table add-rows" id="#user_tbl" width="100%">
+                    <table class="table add-rows" id="user_tbl" width="100%">
                         <thead>
                             <tr>
-                              {{-- <th style="display:none;"></th> --}}
+                              <th style="display:none;"></th>
                               <th>#</th>
                               <th>name</th>
                               <th>Mobile</th>
                               <th>email</th>
-                              <th>designation</th>
-                              <th>city</th>
                               <th>Status</th>
                               <th>register On</th>
                               <th>Action</th>
                             </tr>
                         </thead>
 
-                        <tbody>
 
-                          <tr>
-                            <td>01</td>
-                            <td>Mayur</td>
-                            <td>9879446033</td>
-                            <td>mayur@gmail.com</td>
-                            <td>Developer</td>
-                            <td>ahemdabad</td>
-                            <td>Confirmed</td>
-                            <td>27-09-2022</td>
-                            <td>
-                              <a href="{{route('users.view')}}" data-id="1" class="float-top"><i class="bx bx-show text-primary bx-sm"></i></a>
-                              <a href="#" data-id="1" class="float-top"><i class="bx bx-trash text-danger bx-sm"></i></a>
-                        </td>
-
-                          </tr>
-
-                        </tbody>
                     </table>
                 </div>
                 <!-- datatable ends -->
@@ -79,7 +59,5 @@
 
 {{-- page scripts --}}
 @section('page-scripts')
-    <script src="{{asset('js/scripts/datatables/datatable.js')}}"></script>
-
     @include('scripts.users.index_js')
 @endsection

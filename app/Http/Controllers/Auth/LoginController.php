@@ -4,7 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\User;
+use Illuminate\Support\Str;
+use Auth;
+use Carbon\Carbon;
+use Log;
+use Hash;
+use Exception;
 
 class LoginController extends Controller
 {
@@ -39,15 +47,52 @@ class LoginController extends Controller
     }
 
     // Login
-    public function showLoginForm()
+    public function show_login_form()
     {
-        $pageConfigs = ['bodyCustomClass' => 'bg-full-screen-image'];
+      return view('auth.login');
 
-        return view(
-            '/auth/login',
-            [
-                'pageConfigs' => $pageConfigs
-            ]
-        );
     }
+
+    public function login(Request $request){
+
+      try{
+
+          $credentials = $request->only('user_name', 'password');
+
+          if (Auth()->attempt($credentials)) {
+
+              $user = Auth::user();
+
+              if($user && in_array($user->association_type, ["admin"])){
+
+                  // if($user->association_type_term == config('custom.association_type_term.admin')){
+
+                  return response()->json(['success' => 1, 'message' => trans('auth.success_login'), 'redirect_url' => route('dashboard')]);
+
+              }
+              else{
+                  Auth::logout();
+                  return response()->json(['success' => 0, 'message' => trans('auth.failed')]);
+              }
+
+          }else{
+
+              return response()->json(['success' => 0, 'message' => trans('auth.failed')]);
+          }
+
+      }
+      catch(Exception $exception)
+      {
+          Log::info(print_r($exception->getmessage(),true));
+          return response()->json(['success' => 0, 'message' => 'Something went wrong']);
+      }
+
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
+
 }
