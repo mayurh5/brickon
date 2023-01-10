@@ -92,6 +92,13 @@ class ProductController extends Controller
 
           }
 
+
+          if($request->primary == 1){
+
+            Product::where('id','!=',$product->id)->update(array('is_primary' => 0));
+
+          }
+
           $response_array = ['success' => 1, 'message' => !empty($request->product_id) ? "Product updated sucessfully." : "Product added sucessfully." , 'redirect_url' => route('product.index')];
 
         }
