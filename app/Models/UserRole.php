@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KYC extends Model
+class UserRole extends Model
 {
     use HasFactory;
-    protected $table='kyc_info';
+    protected $table = 'user_role';
+    protected $primaryKey = 'user_role_id';
 }

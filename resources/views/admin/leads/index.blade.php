@@ -17,49 +17,34 @@
                     <li class="breadcrumb-item ">Leads</a></li>
                 </ol>
             </p>
-              <div class="card-header pt-75 pb-75">
+              {{-- <div class="card-header pt-75 pb-75">
                   <h4 class="card-title text-primary">Leads List</h4>
                   <div class="d-flex">
                       <a class="btn btn-primary mr-1" href="{{route('leads.create')}}" id="addBillBtn"><i class="bx bx-plus"></i> {{ trans('pages.add_with_attr', ['attribute' => 'Leads']) }}</a>
                   </div>
-              </div>
+              </div> --}}
 
             <div class="card-body">
                 <!-- datatable start -->
                 <div class="table-responsive">
-                    <table class="table add-rows" id="stock_list_tbl">
+                    <table class="table add-rows" id="lead_list_tbl">
                         <thead>
                             <tr>
-                              {{-- <th style="display:none;"></th> --}}
+                              <th style="display:none;"></th>
                               <th>#</th>
                               <th>Party name</th>
                               <th>Mobile no</th>
-                              <th>production count</th>
-                              <th>rate</th>
                               <th>total ton</th>
+                              <th>total Price</th>
+                              <th>tax</th>
+                              <th>Order Date</th>
+                              <th>Due Date</th>
                               <th>status</th>
-                              <th>Delivery address</th>
-                              <th>GST No</th>
                               <th>action</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                          <tr>
-                            <td>01</td>
-                            <td>Kishan savani</td>
-                            <td>9879446033</td>
-                            <td>50</td>
-                            <td>100</td>
-                            <td>100</td>
-                            <td>Confirmed</td>
-                            <td>Ahemdabad</td>
-                            <td>123456789</td>
-                            <td>
-                              <a href="#" data-id="1" class="float-top"><i class="bx bx-edit text-primary bx-sm"></i></a>
-                              <a href="{{route('leads.view')}}" data-id="1" class="float-top"><i class="bx bx-show text-primary bx-sm"></i></a>
-                        </td>
-                          </tr>
 
 
                         </tbody>
@@ -80,6 +65,6 @@
 
 {{-- page scripts --}}
 @section('page-scripts')
-<script src="{{asset('js/scripts/datatables/datatable.js')}}"></script>
+
     @include('scripts.leads.index_js')
 @endsection

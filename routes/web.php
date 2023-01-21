@@ -41,7 +41,8 @@ Route::group(['namespace'=>'admin'], function () {
 
     Route::get('/', [LeadsController::class, 'index'])->name('index');
     Route::get('/create', [LeadsController::class, 'create'])->name('create');
-    Route::get('/view', [LeadsController::class, 'view'])->name('view');
+    Route::get('/view/{id?}', [LeadsController::class, 'view'])->name('view');
+    Route::post('/list', [LeadsController::class, 'get_lead_list_json'])->name('get_lead_list_json');
 
 
   });

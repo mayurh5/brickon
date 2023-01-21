@@ -117,10 +117,12 @@ class LeadController extends Controller
               }
 
               $lead_final_total = LeadProduct::where('lead_id',$lead->id)->sum('price');
+              $total_tons = LeadProduct::where('lead_id',$lead->id)->sum('qty');
               $lead->final_total = $lead_final_total;
               $tax = $lead_final_total * 0.18;
               $lead->total = $lead_final_total - $tax;
               $lead->primary_product_price = $primary_price;
+              $lead->total_tons = $total_tons;
               $lead->save();
 
               $lead_status = new LeadStatus;
@@ -205,7 +207,7 @@ class LeadController extends Controller
         if($lead){
 
           $lead_product = LeadProduct::where('lead_id', $request->lead_id)->get();
-          
+
           $lead['product'] = $lead_product;
 
         }

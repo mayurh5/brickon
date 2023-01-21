@@ -29,3 +29,24 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
   font-size: 12px;
   line-height: 100%;
 }
+
+/* toast background colors starts */
+.toast {
+	background-color: #5A8DEE !important;
+  }
+
+  .toast-success {
+	background-color: #39DA8A !important;
+  }
+
+  .toast-error {
+	background-color: #FF5B5C !important;
+  }
+
+  .toast-info {
+	background-color: #00CFDD !important;
+  }
+
+  .toast-warning {
+	background-color: #FDAC41 !important;
+  }

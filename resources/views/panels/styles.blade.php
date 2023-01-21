@@ -18,11 +18,13 @@
     <link rel="stylesheet" type="text/css" href="{{asset('css/themes/dark-layout.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/themes/semi-dark-layout.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('css/custom_style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('vendors/css/extensions/toastr.css')}}">
 
+   <link rel="stylesheet" type="text/css" href="{{asset('css/plugins/extensions/toastr.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendors/css/tables/datatable/buttons.bootstrap4.min.css')}}">
-    
+
     @if($configData['direction'] === 'rtl')
     <link rel="stylesheet" type="text/css" href="{{asset('css/custom-rtl.css')}}">
     @endif
@@ -39,6 +41,7 @@
 
     <!-- BEGIN: Custom CSS-->
     @if($configData['direction'] === 'ltr')
+
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
     @else
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style-rtl.css')}}">

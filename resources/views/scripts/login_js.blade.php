@@ -33,8 +33,10 @@
                   hideLoadingDialog();
                   if(response.success=='1')
                   {
-                      showSuccessMessage(response.message);
+
                       window.location.href = response.redirect_url;
+                      showSuccessMessage(response.message);
+                      
                   }else{
                       showErrorMessage(response.message);
 

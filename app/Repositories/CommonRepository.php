@@ -84,7 +84,7 @@ class CommonRepository {
     public static function save_kyc_details(Request $request, $user_id) {
 
         try{
-
+          // dd($request->all());
           // $auth_user = \Helper::get_auth_user($request);
 
             $kyc = KYC::where('user_id', $user_id)->first();
@@ -124,7 +124,7 @@ class CommonRepository {
 
             if ($request->hasFile('pan_file')){
 
-                $old_file = $kyc->gst_file;
+                $old_file = $kyc->pan_file;
 
                 if(!empty($old_file)){
                       \Helper::unlink_document($old_file);
@@ -136,13 +136,17 @@ class CommonRepository {
 
                 $pan_file = \Helper::upload_file($file, "", $file_name_to_store, $file_uploaded_path, $is_base64_file = false);
 
-                $kyc->gst_file = $pan_file;
+                $kyc->pan_file = $pan_file;
             }
+
+            $kyc->save();
+
+            return $kyc;
 
         }catch(\Exception $e) {
 
                 Log::info("error save_location_details ". print_r($e->getMessage(), true));
-            }
+        }
 
     }
 

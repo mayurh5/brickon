@@ -441,7 +441,7 @@ class Helper
       $file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
 
       $base_name = basename($file_name, "." . $file_extension);
-      $file_name_to_store  = Str::slug($base_name) . '.' . $file_extension;
+      $file_name_to_store  = time() . '.' . $file_extension;
 
       if($default_storage == 'public' || $default_storage == 'local'){
 

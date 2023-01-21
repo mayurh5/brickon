@@ -37,6 +37,9 @@ Route::middleware(['cors'])->group(function () {
       Route::post('get_user_details_by_id', [UserController::class, 'get_user_details_by_id']);
       Route::post('update_user_details_by_id', [UserController::class, 'update_user_details_by_id']);
 
+      Route::post('get_kyc_details', [UserController::class, 'get_kyc_details']);
+      Route::post('update_kyc_details', [UserController::class, 'update_kyc_details']);
+
       Route::post('store_lead', [LeadController::class, 'store_lead']);
       Route::post('get_lead_list_by_user', [LeadController::class, 'get_lead_list_by_user']);
       Route::post('get_lead_detail_by_lead_id', [LeadController::class, 'get_lead_detail_by_lead_id']);

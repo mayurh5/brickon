@@ -23,4 +23,9 @@ class LeadsController extends Controller
   {
     return view('admin.leads.view');
   }
+
+  public function get_lead_list_json(Request $request)
+  {
+    return LeadsRepo :: get_lead_list($request);
+  }
 }

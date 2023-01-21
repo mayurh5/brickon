@@ -26,6 +26,7 @@
 <script src="{{asset('vendors/js/tables/datatable/dataTables.buttons.min.js')}}"></script>
 
 <script src="{{asset('vendors/js/extensions/toastr.min.js')}}"></script>
+<script src="{{asset('js/scripts/extensions/toastr.js')}}"></script>
 <script src="{{asset('vendors/js/extensions/sweetalert2.all.min.js')}}"></script>
 
 <script src="{{asset('vendors/js/pickers/pickadate/picker.js')}}"></script>

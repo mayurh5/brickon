@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Member;
+use App\Models\Address;
 use App\Models\MobileOtp;
+use App\Models\KYC;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 use Log;
@@ -25,9 +27,9 @@ class UserController extends Controller
 
     try {
 
-      if ($request->is_for_update_password == 1) {
+      // if ($request->is_for_login == 1) {
 
-        if (Member::where('phone', $request->mobile)->where('is_active',1)->exists()){
+        // if (Member::where('phone', $request->mobile)->where('is_active',1)->exists()){
 
           $validator = Validator::make($request->all() , ['mobile' => 'required', ]);
 
@@ -49,43 +51,42 @@ class UserController extends Controller
             $sendOtp->save();
 
             $response_array = array('status' => 1,  'message' => "Sent otp in your mobile.", 'data' => $sendOtp );
+        // } else {
+        //   $response_array = array('status' => 0,  'message' => "User not found." );
+        // }
 
-        } else {
-          $response_array = array('status' => 0,  'message' => "User not found." );
-        }
+      // } else {
 
-      } else {
+      //   if (Member::where('phone', $request->mobile)->where('is_active',1)->exists())
+      //   {
+      //       $response_array = array('status' => 0,  'message' => "This mobile number is already uses, Please try another number." );
 
-        if (Member::where('phone', $request->mobile)->where('is_active',1)->exists())
-        {
-            $response_array = array('status' => 0,  'message' => "This mobile number is already uses, Please try another number." );
+      //   } else {
 
-        } else {
+      //     $validator = Validator::make($request->all() , ['mobile' => 'required', ]);
 
-          $validator = Validator::make($request->all() , ['mobile' => 'required', ]);
+      //     if ($validator->fails()){
 
-          if ($validator->fails()){
+      //       return response()->json(['status' => 0, 'message' => implode(',', $validator->messages()->all()) ]);
 
-            return response()->json(['status' => 0, 'message' => implode(',', $validator->messages()->all()) ]);
+      //     } else {
 
-          } else {
+      //       do
+      //       {
+      //           $refrence_id = mt_rand(1000, 9999);
+      //       }
+      //       while (MobileOtp::where('otp', $refrence_id)->exists());
 
-            do
-            {
-                $refrence_id = mt_rand(1000, 9999);
-            }
-            while (MobileOtp::where('otp', $refrence_id)->exists());
+      //       $sendOtp = new MobileOtp;
+      //       $sendOtp->mobile = $request->mobile;
+      //       $sendOtp->otp = $refrence_id;
+      //       $sendOtp->save();
 
-            $sendOtp = new MobileOtp;
-            $sendOtp->mobile = $request->mobile;
-            $sendOtp->otp = $refrence_id;
-            $sendOtp->save();
+      //       $response_array = array('status' => 1,  'message' => "Please check your mobile device.", 'data' => $sendOtp );
+      //     }
+      //   }
 
-            $response_array = array('status' => 1,  'message' => "Please check your mobile device.", 'data' => $sendOtp );
-          }
-        }
-
-      }
+      // }
 
       return response()->json($response_array, 200);
 
@@ -118,7 +119,18 @@ class UserController extends Controller
 
           if (isset($verify_otp)){
 
-              return response()->json(["status" => 1, "message" => "Your otp sucessfully.", "data" => ['is_verifed' => 1]]);
+            $user = Member::where('phone', $request->mobile)->first();
+
+            if($user){
+
+              $user->fcm_token = $request->fcm_token;
+              $user->auth_token = $this->apiToken;
+              $user->save();
+
+              return response()->json(["status" => 1, "message" => "Your otp sucessfully.", "data" => ['is_verifed' => 1,'user_id' => $user->id, 'auth_token' => $user->auth_token]]);
+            }
+
+              return response()->json(["status" => 1, "message" => "Your otp sucessfully.", "data" => ['is_verifed' => 1,'user_id' => null, 'auth_token' => null]]);
           }
           else {
 
@@ -138,7 +150,6 @@ class UserController extends Controller
       return response()->json(['status' => 0, 'message' => $e->getMessage()]);
 
     }
-
 
   }
 
@@ -179,9 +190,10 @@ class UserController extends Controller
 
             $user = new User;
             $user->association_id = $member->id;
-            $user->association_type = config('global.user_type.status.member');
+            $user->association_type = config('global.user_type.member');
             $user->password =  bcrypt('123456'); // Hash::make(Str::random(8))
             $user->company_name = $request->company_name;
+            $user->user_name = $request->mobile;
             $user->designation = $request->designation;
             $user->save();
 
@@ -204,86 +216,84 @@ class UserController extends Controller
     }
   }
 
-  public function login(Request $request)
-  {
-    try {
+  // public function login(Request $request)
+  // {
+  //   try {
 
-      $response_array = array('status' => 0,  'message' => trans('pages.something_wrong') );
+  //     $response_array = array('status' => 0,  'message' => trans('pages.something_wrong') );
 
-      $validation_rules = [
+  //     $validation_rules = [
+  //         'user_name' => 'required',
+  //     ];
 
-          'password' => 'required',
-          'user_name' => 'required',
-      ];
+  //     $validator = Validator::make( $request->all(), $validation_rules );
 
-      $validator = Validator::make( $request->all(), $validation_rules );
+  //     if($validator->fails()) {
 
-      if($validator->fails()) {
+  //         return response()->json(['status' => 0, 'message' => implode(',', $validator->messages()->all()) ]);
 
-          return response()->json(['status' => 0, 'message' => implode(',', $validator->messages()->all()) ]);
+  //     } else {
+  //       $user = User::where('mobile_no', $request->user_name)->first();
 
-      } else {
-        $user = User::where('mobile_no', $request->user_name)->first();
+  //       if ($user) {
 
-        if ($user) {
+  //         if (!in_array($user->association_type_term, [config('global.user_type.member')])) {
 
-          if (!in_array($user->association_type_term, [config('global.user_type.member')])) {
+  //             $response_array = array('status' => 0, 'message' => trans('auth.username_failed'));
 
-              $response_array = array('status' => 0, 'message' => trans('auth.username_failed'));
+  //         } else {
 
-          } else {
+  //             if (!Hash::check($request->password, $user->password)) {
 
-              if (!Hash::check($request->password, $user->password)) {
+  //                 $response_array = ['status' => 0, 'message' => trans('auth.password')];
 
-                  $response_array = ['status' => 0, 'message' => trans('auth.password')];
+  //             } else {
 
-              } else {
+  //                 if (!$user->is_active) {
 
-                  if (!$user->is_active) {
+  //                     $response_array = array('status' => 0, 'message' => trans('auth.inactive_account'));
 
-                      $response_array = array('status' => 0, 'message' => trans('auth.inactive_account'));
+  //                 } else {
 
-                  } else {
+  //                   $postArray = ['token' => $this->apiToken, 'fcm_token' => $request->fcm_token];
 
-                    $postArray = ['token' => $this->apiToken, 'fcm_id' => $request->fcm_id];
-
-                    $login = User::where('id', $user->user_id)->update($postArray);
+  //                   $login = User::where('id', $user->user_id)->update($postArray);
 
 
-                      $response_array = array('status' => 1,  'message' => trans('auth.login_success'), 'data' => $user);
+  //                     $response_array = array('status' => 1,  'message' => trans('auth.login_success'), 'data' => $user);
 
-                  }
-              }
+  //                 }
+  //             }
 
-          }
-      } else {
+  //         }
+  //     } else {
 
-          $response_array = array('status' => 0, 'message' => trans('auth.username_failed'));
-      }
+  //         $response_array = array('status' => 0, 'message' => trans('auth.username_failed'));
+  //     }
 
-      }
+  //     }
 
-      return response()->json($response_array, 200);
+  //     return response()->json($response_array, 200);
 
-    }catch(\Exception $e) {
+  //   }catch(\Exception $e) {
 
-      return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+  //     return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
 
-    }
-  }
+  //   }
+  // }
 
   public function logout(Request $request)
   {
       try
       {
 
-          if (User::where('id', $request->user_id)
+          if (Member::where('id', $request->user_id)
               ->exists())
           {
 
-              $postArray = ['token' => null, 'fcm_id' => null];
+              $postArray = ['auth_token' => null, 'fcm_token' => null];
 
-              $logout = User::where('id', $request->user_id)
+              $logout = Member::where('id', $request->user_id)
                   ->update($postArray);
 
               if ($logout)
@@ -306,13 +316,21 @@ class UserController extends Controller
 
   public function get_user_details_by_id(Request $request)
   {
-      if (User::where('id', $request->user_id)->exists())
+      if (Member::where('id', $request->user_id)->exists())
       {
-          $user = User::where('id', $request->user_id)->first();
-          $member = Member::where('id',$user->association_id)->first();
+
+          $member = Member::where('id',$request->user_id)->first();
+
+
+          $user = User::where(['association_id' => $member->id,
+                               'association_type' => config('global.user_type.member')])
+                        ->first();
+
+          if($user){
+            $user['address'] = Address::where('user_id', $user->id)->first();
+          }
+
           $user['member'] = $member;
-
-
 
           // $user = User::where(['id' => $request->user_id])->first();
 
@@ -361,27 +379,27 @@ class UserController extends Controller
               $member->first_name = $request->first_name;
               $member->last_name = $request->last_name;
               $member->email = $request->email;
-              // $member->phone = $request->phone;
+
+              CommonRepo::save_location_details($request, $user->id);
 
               // if ($request->hasFile('profile_pic')){
                 if ($request->profile_pic){
 
-                  $old_file = $member->profile_pic;
+                    $old_file = $member->profile_pic;
 
-                  if(!empty($old_file)){
-                        // Remove old file
-                        \Helper::unlink_document($old_file);
-                  }
+                    if(!empty($old_file)){
+                          // Remove old file
+                          \Helper::unlink_document($old_file);
+                    }
 
-                  $file = $request->file('profile_pic');
-                  $file_name_to_store = time();
-                  $file_uploaded_path ='images/member';
+                    $file = $request->file('profile_pic');
+                    $file_name_to_store = time();
+                    $file_uploaded_path ='images/member';
 
-                  $file_path = \Helper::upload_file($file, "", $file_name_to_store, $file_uploaded_path, $is_base64_file = false);
+                    $file_path = \Helper::upload_file($file, "", $file_name_to_store, $file_uploaded_path, $is_base64_file = false);
 
-                  $member->profile_pic = $file_path;
-                  // $member->save();
-              }
+                    $member->profile_pic = $file_path;
+                }
 
 
               $member->save();
@@ -403,5 +421,80 @@ class UserController extends Controller
 
   }
 
+  public function get_kyc_details(Request $request){
+    try {
+
+      $validator = Validator::make($request->all() , ['user_id' => 'required', ]);
+
+      if ($validator->fails()){
+
+        return response()->json(['status' => 0, 'message' => implode(',', $validator->messages()->all()) ]);
+
+      } else {
+
+        $user = User::where(['association_id' => $request->user_id,
+                            'association_type' => config('global.user_type.member')])
+                    ->first();
+
+              if($user){
+
+                $kyc = KYC::where('user_id', $user->id)->first();
+
+                if($kyc){
+
+                  $response_array = array('status' => 1,  'message' => trans('pages.action_success') , "data" => $kyc);
+
+                } else{
+                  $response_array = array('status' => 0,  'message' => "Kyc details not found." );
+                }
+
+              } else {
+                $response_array = array('status' => 0,  'message' => "User not found." );
+              }
+
+              return response()->json($response_array, 200);
+      }
+
+    } catch (\Exception $e) {
+
+      return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+
+    }
+  }
+
+  public function update_kyc_details(Request $request){
+    try {
+
+      $validator = Validator::make($request->all() , ['user_id' => 'required', ]);
+
+      if ($validator->fails()){
+
+        return response()->json(['status' => 0, 'message' => implode(',', $validator->messages()->all()) ]);
+
+      } else {
+
+        $user = User::where(['association_id' => $request->user_id,
+                            'association_type' => config('global.user_type.member')])
+                    ->first();
+
+              if($user){
+
+               $kyc =  CommonRepo::save_kyc_details($request, $user->id);
+               
+                $response_array = array('status' => 1,  'message' => "Kyc details updated successfully done.", 'data' => $kyc );
+
+              } else {
+                $response_array = array('status' => 0,  'message' => "User not found." );
+              }
+
+              return response()->json($response_array, 200);
+      }
+
+    } catch (\Exception $e) {
+
+      return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+
+    }
+  }
 
 }
