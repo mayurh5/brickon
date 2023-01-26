@@ -237,15 +237,15 @@ class LeadController extends Controller
 
           if(!empty($request->search)){
 
-              $search_query = $main_query->where('pro.value','LIKE',"%{$request->search_string}%")
-                                          ->orWhere('pro.price_difference','LIKE',"%{$request->search_string}%");
+              $search_query = $main_query->where('pro.value','LIKE',"%{$request->search}%")
+                                          ->orWhere('pro.price_difference','LIKE',"%{$request->search}%");
 
           }
 
-          $main_query = $main_query->paginate(isset($request->size) ? $request->size : 10);
+          $main_query = $main_query->get();
 
           $data['list'] = $main_query->all();
-          $data['total_pages'] = $main_query->lastPage();
+          // $data['total_pages'] = $main_query->lastPage();
 
           return response()
               ->json(["status" => 1, "message" => "Product list with search text.", "data" => $data]);

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\LeadController;
 use App\Http\Controllers\API\DocumentController;
+use App\Http\Controllers\API\SettingController;
+use App\Http\Controllers\API\FeedbackController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,6 +50,10 @@ Route::middleware(['cors'])->group(function () {
       Route::get('get_documnent_type', [DocumentController::class, 'get_documnent_type']);
       Route::post('get_document_list_by_type', [DocumentController::class, 'get_document_list_by_type']);
 
+      Route::get('get_cms_pages', [SettingController::class, 'get_cms_pages']);
+
+      Route::get('store_feedback', [FeedbackController::class, 'store_feedback']);
+      Route::post('get_feedback_details', [FeedbackController::class, 'get_feedback_details']);
 
     });
 

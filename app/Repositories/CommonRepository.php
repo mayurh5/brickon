@@ -8,6 +8,7 @@ use App\Helpers\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 use Validator;
 use File;
 use Image;
@@ -72,6 +73,8 @@ class CommonRepository {
             $location->long = $request->long;
             $location->country = $request->country;
             $location->save();
+
+            User::where('id', $user_id)->update(array('address_id' => $location->id));
           }
 
         }catch(\Exception $e) {
@@ -140,6 +143,8 @@ class CommonRepository {
             }
 
             $kyc->save();
+
+            User::where('id', $user_id)->update(array('kyc_id' => $kyc->id));
 
             return $kyc;
 
