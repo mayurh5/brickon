@@ -51,7 +51,7 @@ Route::group(['namespace'=>'admin'], function () {
 
     Route::get('/', [UserController::class, 'index'])->name('index');
     Route::get('/create', [UserController::class, 'create'])->name('create');
-    Route::get('/view', [UserController::class, 'view'])->name('view');
+    Route::get('/view/{id?}', [UserController::class, 'view'])->name('view');
     Route::post('/list', [UserController::class, 'user_json_list']);
 
 

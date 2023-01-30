@@ -9,4 +9,9 @@ class LeadProduct extends Model
 {
     use HasFactory;
     protected $table='lead_product_details';
+
+    public function product_details()
+    {
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
 }

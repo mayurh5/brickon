@@ -23,7 +23,7 @@ class UserController extends Controller
 
     }
 
-    public function view(Request $request){
+    public function view(Request $request, $id){
 
       return view('admin.users.view');
 

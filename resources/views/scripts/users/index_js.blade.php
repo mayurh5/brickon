@@ -82,7 +82,7 @@
                         "data": "id",
                         "render": function(data, type, row) {
                             var html = '';
-
+                            html += ' <a href="' + baseUrl + 'users/view/' + row.id +'"><i class="bx bx-show text-primary bx-sm mr-50"></i></a>';
                               // html += ' <a href="' + baseUrl + 'product/create/' + row.id + '"><i class="bx bx-edit text-primary bx-sm mr-50"></i></a>';
 
                             return html;

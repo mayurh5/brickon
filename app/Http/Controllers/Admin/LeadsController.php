@@ -35,15 +35,20 @@ class LeadsController extends Controller
 
     if (Lead::where('id', $id)->exists()) {
 
-      $lead = Lead::where('id', $id)->first();
+      $lead = Lead::where('id', $id)->with('user_details')->first();
 
       if($lead){
 
-        $lead_product = LeadProduct::where('lead_id', $request->lead_id)->get();
+        $lead_product = LeadProduct::from('lead_product_details as product')
+                                    ->where('product.lead_id', $lead->id)
+                                    ->with('product_details')
+                                    ->select('product.*')
+                                    ->get();
 
         $lead['product'] = $lead_product;
 
       }
+
       return view('admin.leads.view', compact('lead'));
 
     } else {

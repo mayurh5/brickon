@@ -64,26 +64,7 @@ class LeadController extends Controller
 
             if(!empty($lead_product)){
 
-
-              foreach ($lead_product as $key => $value) {
-
-                if($value['is_primary'] == 1 ){
-
-                  $primary_price = $value['price_difference'];
-
-                  // if($a < 0){
-
-                  //   $b = $primary_price + $a; // plus + minus = minus
-
-                  // } else {
-
-                  //   $b = $primary_price + $a; // plus + plus = plus
-
-                  // }
-
-                }
-
-              }
+              $primary_price = $request->primary_product_price_per_ton;
 
               foreach ($lead_product as $key => $value) {
 
@@ -91,26 +72,16 @@ class LeadController extends Controller
 
                 if($product){
 
-                    if(!$value['is_primary'] == 1 ){
+                    $item_price = $primary_price + $product->price_difference;
 
-                        $item_price = $primary_price + $product->price_difference;
-                        $qty_price_total = $item_price * $value['qty'];
-
-                    }
-
-                    else {
-
-                        $qty_price_total = $primary_price * $value['qty'];
-
-                    }
+                    $qty_price_total = $item_price * $value['qty'];
 
                     $product =  new LeadProduct;
                     $product->lead_id = $lead->id;
                     $product->product_id = $value['product_id'];
                     $product->qty = $value['qty'];
                     $product->price = $qty_price_total;
-                    // $product->type = $value['type'];
-                    $product->value = $value['value'];
+                    $product->value = $product->value;
                     $product->save();
 
                 }
