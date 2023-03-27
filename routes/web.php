@@ -43,6 +43,7 @@ Route::group(['namespace'=>'admin'], function () {
     Route::get('/create', [LeadsController::class, 'create'])->name('create');
     Route::get('/view/{id?}', [LeadsController::class, 'view'])->name('view');
     Route::post('/list', [LeadsController::class, 'get_lead_list_json'])->name('get_lead_list_json');
+    Route::post('/status/update', [LeadsController::class, 'status_update'])->name('status_update');
 
 
   });

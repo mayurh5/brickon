@@ -10,6 +10,7 @@ use App\Models\Member;
 use App\Models\Address;
 use App\Models\MobileOtp;
 use App\Models\KYC;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 use Log;
@@ -480,7 +481,7 @@ class UserController extends Controller
               if($user){
 
                $kyc =  CommonRepo::save_kyc_details($request, $user->id);
-               
+
                 $response_array = array('status' => 1,  'message' => "Kyc details updated successfully done.", 'data' => $kyc );
 
               } else {
@@ -495,6 +496,26 @@ class UserController extends Controller
       return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
 
     }
+  }
+
+  public function get_contact_us(Request $request){
+
+    try {
+
+      $data = Contact::first();
+
+      return response()->json([
+      "status"=>1,
+      "message" => "Contact us data.",
+      "data"=>$data
+      ]);
+
+    } catch (\Throwable $th) {
+
+      return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+
+    }
+
   }
 
 }

@@ -12,6 +12,7 @@ use App\Models\LeadProduct;
 use App\Models\Charges;
 use App\Models\LeadCharges;
 use App\Models\LeadStatus;
+use Log;
 
 class LeadsController extends Controller
 {
@@ -54,6 +55,13 @@ class LeadsController extends Controller
     } else {
 
     }
+
+  }
+
+  public function status_update(Request $request){
+
+    Log::info("status_update ". print_r($request->all(),true));
+
 
   }
 

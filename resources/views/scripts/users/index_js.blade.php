@@ -76,7 +76,12 @@
                             return html;
                         }
                     },
-                    {"data": "phone"},
+                    {
+                      "data": "created_at",
+                      "render": function(data, type, row) {
+                          return row.created_at ? formatDateValueInInput(row.created_at) : '-';
+                      }
+                  },
 
                     {
                         "data": "id",

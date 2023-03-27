@@ -84,7 +84,13 @@
                           return row.due_date ? formatDateValueInInput(row.due_date) : '-';
                       }
                   },
-                  { "data": "total" },
+                  {
+                      "data": "status",
+                      "render": function(data, type, row) {
+                          return row.status ? status_term_badge(row.status) : '-';
+                      }
+                  },
+
                   {
                       "data": "",
                       "render": function(data, type, row) {

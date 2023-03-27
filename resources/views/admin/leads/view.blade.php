@@ -14,7 +14,12 @@
             <div class="card-header">
               <div class="row">
                 <blockquote class="blockquote pl-50 border-left-primary border-left-3 float-left">
+
                     <h4 class="mb-0 shop-title float-left">Customer Detail</h4>
+
+                      <a class="btn btn-success float-right ml-1 lead_status" href="#" data-action="confirm" data-lead-order-id="{{$lead['id']}}">Confirm</a>
+                      <a class="btn btn-danger float-right ml-2 lead_status" href="#" data-action="cancle" data-lead-order-id="{{$lead['id']}}">Cancel</a>
+
                 </blockquote>
               </div>
             </div>
@@ -227,4 +232,5 @@
 @endsection
 @section('page-scripts')
 <script src="{{asset('js/scripts/datatables/datatable.js')}}"></script>
+@include('scripts.leads.view_js')
 @endsection

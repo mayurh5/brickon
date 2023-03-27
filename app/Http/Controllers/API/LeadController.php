@@ -22,7 +22,7 @@ class LeadController extends Controller
    public function store_lead(Request $request){
 
     try {
-
+// dd($request->all());
         $response_array = array('status' => 0,  'message' => trans('pages.something_wrong') );
 
         $validation_rules = [
@@ -76,13 +76,14 @@ class LeadController extends Controller
 
                     $qty_price_total = $item_price * $value['qty'];
 
-                    $product =  new LeadProduct;
-                    $product->lead_id = $lead->id;
-                    $product->product_id = $value['product_id'];
-                    $product->qty = $value['qty'];
-                    $product->price = $qty_price_total;
-                    $product->value = $product->value;
-                    $product->save();
+                    $new_product =  new LeadProduct;
+                    $new_product->lead_id = $lead->id;
+                    $new_product->product_id = $value['product_id'];
+                    $new_product->qty = $value['qty'];
+                    $new_product->price = $qty_price_total;
+                    $new_product->value = $product->value;
+                    $new_product->type = ($product->is_primary == 1 ? 'is_primary' : 'not_primary');
+                    $new_product->save();
 
                 }
               }
@@ -137,7 +138,7 @@ class LeadController extends Controller
 
         $leads = Lead::where('user_id', $request->user_id)
                       ->orderBy('id', 'DESC')
-                      ->get(['id','order_date','due_date','final_total','total_tons','status']);
+                      ->get(['id','order_date','due_date','final_total','total_tons','status','order_code']);
 
         $lead_product =
 
