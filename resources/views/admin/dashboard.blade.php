@@ -106,7 +106,7 @@
                   <td>{{$key+1}}</td>
                   <td>{{$item->first_name}} {{$item->last_name}}</td>
                   <td>{{isset($item->email) ? $item->email : '-'}}</td>
-                  <td>{{isset($item->mobile) ? $item->mobile : '-'}}</td>
+                  <td>{{isset($item->phone) ? $item->phone : '-'}}</td>
                   <td>{{isset($item->gst_number) ? $item->gst_number : '-'}}</td>
                   <td>{{isset($item->pan_number)  ? $item->pan_number : '-'}}</td>
                 </tr>
