@@ -8,6 +8,7 @@ use App\Http\Controllers\API\LeadController;
 use App\Http\Controllers\API\DocumentController;
 use App\Http\Controllers\API\SettingController;
 use App\Http\Controllers\API\FeedbackController;
+use App\Http\Controllers\API\DistributorController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -55,6 +56,9 @@ Route::middleware(['cors'])->group(function () {
 
       Route::get('store_feedback', [FeedbackController::class, 'store_feedback']);
       Route::post('get_feedback_details', [FeedbackController::class, 'get_feedback_details']);
+
+      Route::get('get_distributor_list', [DistributorController::class, 'get_distributor_list']);
+
 
     });
 

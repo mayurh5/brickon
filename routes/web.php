@@ -28,7 +28,7 @@ use App\Http\Controllers\Auth\LoginController;
 Route::get('/login', [LoginController::class, 'show_login_form'])->name('show_login_form');
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
-// Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
+
 Route::middleware(['auth'])->group(function () {
 
   Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
