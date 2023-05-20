@@ -36,7 +36,14 @@ class LeadsController extends Controller
 
     if (Lead::where('id', $id)->exists()) {
 
-      $lead = Lead::where('id', $id)->with('user_details')->first();
+      $lead = Lead::from('lead')
+                  ->where('lead.id', $id)
+                  ->leftjoin('users as u','u.id','=','lead.user_id')
+                  ->leftjoin('member as m','m.id','=','u.association_id')
+                  ->where('u.association_type',config('global.user_type.member'))
+                  ->select('lead.*','m.id as member_id','m.first_name','m.last_name','m.email','m.phone')
+                  ->first();
+
 
       if($lead){
 
@@ -53,15 +60,35 @@ class LeadsController extends Controller
       return view('admin.leads.view', compact('lead'));
 
     } else {
-
+      return redirect()->route('leads.index')->with('error', 'Lead not found!');
     }
 
   }
 
   public function status_update(Request $request){
 
-    Log::info("status_update ". print_r($request->all(),true));
+      $lead = Lead::where('id', $request->lead_id)->first();
 
+      if($lead){
+
+        \Helper::store_lead_status($request);
+
+        $lead->status = $request->status_action;
+        $lead->save();
+
+      }
+
+      if ($request->status_action == config('global.status.confirmed')) {
+        $message = "Order status has been ".config('global.status.confirmed')."";
+      } else if ($request->status_action == config('global.status.cancelled')){
+        $message = "Order status has been ".config('global.status.cancelled')."";
+      } else {
+        $message = "Order status has been ".config('global.status.completed')."";
+      }
+
+      $response_array = array('success' => 1,  'message' => $message );
+
+      return response()->json($response_array, 200);
 
   }
 

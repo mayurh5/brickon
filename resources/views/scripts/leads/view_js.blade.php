@@ -62,6 +62,7 @@
                         {
                             // window.location.href = response.redirect_url;
                             showSuccessMessage(response.message);
+                            location.reload();
                         }else{
                             hideLoadingDialog();
                             showErrorMessage(response.message);

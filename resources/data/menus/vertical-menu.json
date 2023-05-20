@@ -9,6 +9,12 @@
 
     },
     {
+      "url": "roles",
+      "name": "Role",
+      "slug": "roles.index",
+      "icon": "user"
+    },
+    {
       "url": "users",
       "name": "User List",
       "slug": "users.index",

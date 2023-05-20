@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\ContactUsController;
+use App\Http\Controllers\Admin\RoleRightController;
 use App\Http\Controllers\Auth\LoginController;
 
 /*
@@ -51,9 +52,13 @@ Route::group(['namespace'=>'admin'], function () {
   Route::group(['prefix' => 'users', 'namespace'=>'users', 'as'=>'users.'], function () {
 
     Route::get('/', [UserController::class, 'index'])->name('index');
-    Route::get('/create', [UserController::class, 'create'])->name('create');
+    Route::get('/create/{id?}', [UserController::class, 'create'])->name('create');
     Route::get('/view/{id?}', [UserController::class, 'view'])->name('view');
     Route::post('/list', [UserController::class, 'user_json_list']);
+    Route::post('/store', [UserController::class, 'store'])->name('store');
+    Route::post('/web_user_json_list', [UserController::class, 'web_user_json_list']);
+    Route::get('/change_password', [UserController::class, 'change_password'])->name('change_password');
+    Route::POST('/admin_change_password', [UserController::class, 'admin_change_password'])->name('admin_change_password');
 
 
   });
@@ -114,6 +119,18 @@ Route::group(['namespace'=>'admin'], function () {
 
     Route::get('/', [ContactUsController::class, 'index'])->name('index');
     Route::post('update/', [ContactUsController::class, 'update'])->name('update');
+
+  });
+
+  Route::group(['prefix' => 'roles', 'namespace'=>'roles', 'as'=>'roles.'], function () {
+
+    Route::get('/', [RoleRightController::class, 'index'])->name('index');
+    Route::get('/create/{id?}', [RoleRightController::class, 'create'])->name('create');
+    // Route::post('update/', [RoleRightController::class, 'update'])->name('update');
+    Route::post('/get_right_list', [RoleRightController::class,'get_right_list']);
+    Route::post('/store', [RoleRightController::class,'store'])->name('store');
+    Route::post('/get_role_list_json', [RoleRightController::class,'get_role_list_json'])->name('get_role_list_json');
+    Route::get('/status/update', [RoleRightController::class,'change_status']);
 
   });
 

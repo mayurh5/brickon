@@ -1,5 +1,22 @@
 
     <script>
+      @if(Session::has('message'))
+          toastr.options =
+          {
+
+              "closeButton" : true,
+          }
+          toastr.success("{{ session('message') }}");
+
+      @endif
+
+      @if(Session::has('error'))
+          toastr.options =
+          {
+              "closeButton" : true,
+          }
+          toastr.error("{{ session('error') }}");
+      @endif
 
       @if(Session::has('status') && session('status') == '1')
           toastr.options =

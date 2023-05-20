@@ -141,13 +141,14 @@ return [
   "User List" => "User",
   "Distributors" => "Distributors",
   "Bropchure" => "Bropchure",
-  "Banners" => "Banners",
+  "Banners" => "Banner",
   "Terms" => "Terms",
   "Product" => "Product",
   "App Management" => "App Management",
   "Application" => "Application",
   "setting" => "Setting",
-  'contact us' => 'Contact Us'
+  'contact us' => 'Contact Us',
+  'Role' => 'Role'
 
 ];
 ?>

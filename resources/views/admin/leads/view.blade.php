@@ -15,10 +15,24 @@
               <div class="row">
                 <blockquote class="blockquote pl-50 border-left-primary border-left-3 float-left">
 
-                    <h4 class="mb-0 shop-title float-left">Customer Detail</h4>
+                    <h4 class="mb-0 shop-title float-left">Order Details</h4>
 
-                      <a class="btn btn-success float-right ml-1 lead_status" href="#" data-action="confirm" data-lead-order-id="{{$lead['id']}}">Confirm</a>
-                      <a class="btn btn-danger float-right ml-2 lead_status" href="#" data-action="cancle" data-lead-order-id="{{$lead['id']}}">Cancel</a>
+                    @if ($lead['status'] == config('global.status.confirmed'))
+                      <a class="btn btn-success glow  float-right mr-1 mb-1 lead_status" href="#" data-action="completed" data-lead-order-id="{{$lead['id']}}">Complete</a>
+                    @endif
+
+                    @if ($lead['status'] == config('global.status.pending'))
+
+                      <a class="btn btn-success float-right ml-1 lead_status" href="#" data-action="confirmed" data-lead-order-id="{{$lead['id']}}">Confirm</a>
+                      <a class="btn btn-danger float-right ml-2 lead_status" href="#" data-action="cancelled" data-lead-order-id="{{$lead['id']}}">Cancel</a>
+
+                    @else
+
+                    <div class="float-right ml-1"> {{\Helper::statusBadge($lead['status'])}}</div>
+
+                    @endif
+
+
 
                 </blockquote>
               </div>
@@ -37,7 +51,7 @@
                     <div class="col-4">
                     <div class="form-group">
                         <label class="text-primary">Name</label>
-                          <p>{{@$lead->user_details['first_name']}} {{@$lead->user_details['last_name']}}</p>
+                          <p><a href="{{route('users.view', $lead->member_id)}}"> {{@$lead->user_details['first_name']}} {{@$lead->user_details['last_name']}}</p></a>
                       </div>
                     </div>
 
@@ -174,7 +188,7 @@
 
                 <div class="data d-inline-flex justify-content-between align-items-center w-100">
                   <div class="name-data">
-                    <p class="m-0">Final Total</p>
+                   <h5><p class="m-0">Final Total</p></h5>
                   </div>
                   <div class="amount data">
                     <p class="m-0">${{@$lead['final_total']}}</p>

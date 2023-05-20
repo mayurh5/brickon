@@ -18,18 +18,18 @@ return [
 
   'user_type' => [
     'admin' => 'admin',
+    'sub_admin' => 'sub admin',
     'member' => 'member',
-    'branch_manager' => 'branch_manager',
-    'client' => 'client',
-    'client_contact' => 'client_contact',
-    'guard' => 'guard',
-    'incharge' => 'incharge'
+
   ],
 
   'status' => [
     'pending' => 'pending',
     'confirmed' => 'confirmed',
-    'canceled' => 'canceled',
+    'cancelled' => 'cancelled',
+    'confirm' => 'confirm',
+    'cancle' => 'cancle',
+    'completed' => 'completed',
   ],
 
 

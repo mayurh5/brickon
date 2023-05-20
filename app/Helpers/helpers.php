@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Country;
 use App\Models\State;
+use App\Models\LeadStatus;
 use App\Models\City;
+use App\Models\Role;
+use App\Models\UserRole;
+use App\Models\RoleRight;
+use App\Models\Right;
 use DateTime;
 use DateTimeZone;
 use DatePeriod;
@@ -46,7 +51,7 @@ class Helper
         'navbarType' => 'fixed',
         'isMenuCollapsed' => false,
         'footerType' => 'static',
-        'templateTitle' => '',
+        'templateTitle' => 'Brickon',
         'isCustomizer' => true,
         'isCardShadow' => true,
         'isScrollTop' => true,
@@ -517,6 +522,84 @@ class Helper
       $seq_no = $type . $string . $generate_no;
       return $seq_no;
     }
+
+    public static function store_lead_status($request){
+
+      $status = new LeadStatus;
+      $status->lead_id = $request->lead_id;
+      $status->status = $request->status_action;
+      $status->date_time = date('Y-m-d');
+      $status->save();
+
+    }
+
+    public static function get_role_name($id){
+
+      return Role::where('role_id',$id)->first('role_name');
+
+    }
+
+    public static function user_rights_by_modual(){
+
+      $user_details = auth()->user();
+
+
+      $role_ids = UserRole::select('role_id')
+                              ->from('user_role')
+                              ->where('is_active', 1)
+                              ->where('user_id', $user_details->id)
+                              ->get()
+                              ->toArray();
+
+            if(count($role_ids)){
+
+              $rights = RoleRight::select('right.form_name', 'right.form_icon',  'right.right_id',
+                                          'right.form_title', 'right.form_url',
+                                          'right.parent_form_id', 'rr.is_view', 'rr.is_create', 'rr.is_update', 'rr.is_delete')
+                                  ->from('mst_role_right as rr')
+                                  ->leftJoin('mst_right as right', 'right.right_id','=','rr.right_id')
+                                  ->whereIn('rr.role_id', $role_ids)
+                                  ->whereNull('right.parent_form_id')
+                                  ->where('right.is_active', 1)
+                                  ->orderBy(DB::raw('ISNULL(right.order_no), right.order_no'), 'ASC')
+                                  ->get();
+
+              $right_count = 0;
+
+              if(count($rights)){
+
+                foreach ($rights as $key => $value) {
+
+                  $rights_array[$right_count] = [
+
+                    'name' => $value->form_name,
+                    'rights' => [
+
+                        'is_view' => $value->is_view,
+                        'is_create' => $value->is_create,
+                        'is_update' => $value->is_update,
+                        'is_delete' => $value->is_delete
+                    ]
+
+                  ];
+
+                  $right_count++;
+                }
+              }
+
+            }
+
+            $response_array = (object) [
+                                  'menu' => $rights,
+                                  'rights' => $rights_array
+                              ];
+
+            return $response_array;
+
+
+
+    }
+
 
 
 }

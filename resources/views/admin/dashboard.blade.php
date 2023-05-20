@@ -81,45 +81,7 @@
       </div>
 
     </div>
-    <div class="col-md-12 col-sm-12">
-      <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center p-1">
-          <h4 class="card-title text-primary">Users</h4>
-          <a href="{{ route('users.index') }}" class="btn btn-sm btn-primary glow"> All </a>
-        </div>
-        <div class="card-body pb-1" >
-          <div class="table-responsive">
-            <table id="users-list-tbl" class="table table-hover" width="100%">
-              <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>email</th>
-                    <th>mobile</th>
-                    <th>GST No.</th>
-                    <th>Pan No.</th>
-                </tr>
-              </thead>
 
-                @foreach ($data['members'] as $key => $item)
-                <tr>
-                  <td>{{$key+1}}</td>
-                  <td>{{$item->first_name}} {{$item->last_name}}</td>
-                  <td>{{isset($item->email) ? $item->email : '-'}}</td>
-                  <td>{{isset($item->phone) ? $item->phone : '-'}}</td>
-                  <td>{{isset($item->gst_number) ? $item->gst_number : '-'}}</td>
-                  <td>{{isset($item->pan_number)  ? $item->pan_number : '-'}}</td>
-                </tr>
-                @endforeach
-
-              <tbody>
-
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="col-md-12 col-sm-12">
       <div class="card">
@@ -162,6 +124,47 @@
       </div>
     </div>
 
+    <div class="col-md-12 col-sm-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center p-1">
+          <h4 class="card-title text-primary">Users</h4>
+          <a href="{{ route('users.index') }}" class="btn btn-sm btn-primary glow"> All </a>
+        </div>
+        <div class="card-body pb-1" >
+          <div class="table-responsive">
+            <table id="users-list-tbl" class="table table-hover" width="100%">
+              <thead>
+                <tr>
+                  <th>Action</th>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>email</th>
+                    <th>mobile</th>
+                    <th>GST No.</th>
+                    <th>Pan No.</th>
+                </tr>
+              </thead>
+
+                @foreach ($data['members'] as $key => $item)
+                <tr>
+                  <td> <a href="{{ route('leads.view',$item->id)}}"><i class="bx bx-show text-primary bx-sm mr-50"></i></a>  </td>
+                  <td>{{$key+1}}</td>
+                  <td>{{$item->first_name}} {{$item->last_name}}</td>
+                  <td>{{isset($item->email) ? $item->email : '-'}}</td>
+                  <td>{{isset($item->phone) ? $item->phone : '-'}}</td>
+                  <td>{{isset($item->gst_number) ? $item->gst_number : '-'}}</td>
+                  <td>{{isset($item->pan_number)  ? $item->pan_number : '-'}}</td>
+                </tr>
+                @endforeach
+
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
