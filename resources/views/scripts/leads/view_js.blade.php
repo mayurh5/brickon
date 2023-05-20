@@ -31,17 +31,17 @@
 
                 var lead_id = $(this).data('lead-order-id');
                 var status_action = $(this).data('action');
-
+                
                 var formData = new FormData();
                 formData.append('lead_id', lead_id);
                 formData.append('status_action', status_action);
 
-                if (status_action == "confirm") {
+                if (status_action == "confirmed") {
 
                   var title = "Confirm Lead Order";
                   var description = "Are you sure you want to confirm this lead order ?";
 
-                } else if (status_action == "cancle") {
+                } else if (status_action == "cancelled") {
 
                   var title = "Cancle Lead Order";
                   var description = "Are you sure you want to cancle this lead order ?";
