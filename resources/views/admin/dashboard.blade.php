@@ -94,6 +94,7 @@
             <table id="leads-list-tbl" class="table table-hover" width="100%">
               <thead>
                 <tr>
+                    <th>Action</th>
                     <th>#</th>
                     <th>Name</th>
                     <th>Order No</th>
@@ -105,6 +106,7 @@
 
                 @foreach ($data['leads'] as $key => $item)
                 <tr>
+                  <td> <a href="{{ route('leads.view',$item->id)}}"><i class="bx bx-show text-primary bx-sm mr-50"></i></a>  </td>
                   <td>{{$key+1}}</td>
                   <td>{{$item->first_name}} {{$item->last_name}}</td>
                   <td>{{$item->order_code}}</td>
@@ -135,7 +137,7 @@
             <table id="users-list-tbl" class="table table-hover" width="100%">
               <thead>
                 <tr>
-                  <th>Action</th>
+
                     <th>#</th>
                     <th>Name</th>
                     <th>email</th>
@@ -147,7 +149,7 @@
 
                 @foreach ($data['members'] as $key => $item)
                 <tr>
-                  <td> <a href="{{ route('leads.view',$item->id)}}"><i class="bx bx-show text-primary bx-sm mr-50"></i></a>  </td>
+
                   <td>{{$key+1}}</td>
                   <td>{{$item->first_name}} {{$item->last_name}}</td>
                   <td>{{isset($item->email) ? $item->email : '-'}}</td>
