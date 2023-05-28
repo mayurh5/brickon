@@ -5,12 +5,17 @@
 data-bgcolor="@if(isset($configData['navbarBgColor'])){{$configData['navbarBgColor']}}@endif">
   <div class="navbar-wrapper">
     <div class="navbar-container content">
+
       <div class="navbar-collapse" id="navbar-mobile">
-        <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
 
+       <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
+          <ul class="nav navbar-nav">
+            <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon bx bx-menu"></i></a></li>
+          </ul>
         </div>
-        <ul class="nav navbar-nav float-right">
 
+
+        <ul class="nav navbar-nav float-right">
           <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon bx bx-fullscreen"></i></a></li>
 
           {{-- <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon bx bx-bell bx-tada bx-flip-horizontal"></i><span class="badge badge-pill badge-danger badge-up">5</span></a>

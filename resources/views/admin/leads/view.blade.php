@@ -3,19 +3,29 @@
 @section('title','Leads View')
 
 @section('content')
-
+<style>
+  @media only screen and (max-width: 767px){
+    .order-detail{
+      width: 100%;
+      padding-bottom: 30px
+    }
+    .card-data-small{
+      margin-top: 30px;
+    }
+  }
+</style>
 <section id="users-view">
 
   <div class="row">
     <div class="col-lg-12">
       <div class="row card-data-summary">
-        <div class=" col-8">
+        <div class=" col-lg-8 col-12">
           <div class="card">
             <div class="card-header">
               <div class="row">
                 <blockquote class="blockquote pl-50 border-left-primary border-left-3 float-left">
 
-                    <h4 class="mb-0 shop-title float-left">Order Details</h4>
+                    <h4 class="mb-0 shop-title float-left order-detail">Order Details</h4>
 
                     @if ($lead['status'] == config('global.status.confirmed'))
                       <a class="btn btn-success glow  float-right mr-1 mb-1 lead_status" href="#" data-action="completed" data-lead-order-id="{{$lead['id']}}">Complete</a>
@@ -31,8 +41,6 @@
                     <div class="float-right ml-1"> {{\Helper::statusBadge($lead['status'])}}</div>
 
                     @endif
-
-
 
                 </blockquote>
               </div>
@@ -130,7 +138,7 @@
             </div>
           </div>
         </div>
-        <div class=" col-4" >
+        <div class="card-data-small col-lg-4 col-12" >
           <div class="card">
             <div class="card-header">
               <div class="row">
