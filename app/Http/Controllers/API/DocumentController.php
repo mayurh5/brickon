@@ -8,6 +8,7 @@ use App\Models\Assets;
 use Validator;
 use Log;
 use Carbon\Carbon;
+use DB;
 
 class DocumentController extends Controller
 {
@@ -59,6 +60,18 @@ class DocumentController extends Controller
                           ->orderBy('created_at', 'DESC')
                           ->get(['id','type','path','file_type','title']);
 
+        }
+
+        if ($request->document_type == config('global.file_type.product_quality')) {
+
+          $data = DB::table('settings')
+                      ->select('id','product_qualilty')
+                      ->get();
+
+        } else if( $request->document_type == config('global.file_type.brochure')){
+                $data = DB::table('settings')
+                          ->select('id','brochure')
+                          ->get();
         }
 
 
